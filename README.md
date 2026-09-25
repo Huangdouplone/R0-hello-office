@@ -30,27 +30,27 @@
 | 指标 | 数值 |
 | --- | --- |
 | 章节 / 课节 | **8 / 32** |
-| 阶段测评题 | **56**（choice 29 · judge 19 · fill 8） |
-| 抽题数 | 全站 12 题；**每章另有独立测评**（从该章题库抽 4 题） |
+| 阶段测评题 | **80**（choice 43 · judge 25 · fill 12） |
+| 抽题数 | 全站 12 题；**每章另有独立测评**（从该章 9~11 题的题库里抽 4 题） |
 | 动手实战 | **8**（每章 1 个） |
-| 名词库 | **42 条**（分 4 类：文档与格式 12 / 数据与表格 10 / 呈现与交付 11 / 通用与协作 10），支持搜索 + 默认 9 条折叠 |
-| 概念地图 | **18 节点 / 24 关系**，可交互（总图 ↔ 单点聚焦） |
+| 名词库 | **52 条**（分 4 类：文档与格式 12 / 数据与表格 10 / 呈现与交付 11 / 通用与协作 10），支持搜索 + 默认 9 条折叠 |
+| 概念地图 | **26 节点 / 36 关系**，可交互（总图 ↔ 单点聚焦） |
 | 端到端工作流 | **8 步** + 一条完整示例（季度经营分析材料） |
 | 主页配色风格 | **16 套**（1 套默认 + 15 套星币解锁） |
-| 成就徽章 | **10** |
+| 成就徽章 | **15**（含「文档/表格/演示能手」「测评达人」「双路线体验」） |
 
 章节编排：
 
 | 章 | 名称 | 课节 | 题 |
 | --- | --- | ---: | ---: |
-| c1 | 📄 Word 文字：从输入到排版 | 4 | 8 |
-| c2 | 📚 Word 长文档：样式、目录与协作 | 4 | 6 |
-| c3 | 📊 Excel 表格与公式 | 4 | 6 |
-| c4 | 📈 Excel 分析与可视化 | 4 | 8 |
-| c5 | 🖼️ PPT 演示设计基础 | 4 | 6 |
-| c6 | 🎬 PPT 演示与交付 | 4 | 8 |
-| c7 | 📕 PDF：阅读、编辑与转换 | 4 | 6 |
-| c8 | 🔄 办公协作与效率 | 4 | 8 |
+| c1 | 📄 Word 文字：从输入到排版 | 4 | 11 |
+| c2 | 📚 Word 长文档：样式、目录与协作 | 4 | 9 |
+| c3 | 📊 Excel 表格与公式 | 4 | 9 |
+| c4 | 📈 Excel 分析与可视化 | 4 | 11 |
+| c5 | 🖼️ PPT 演示设计基础 | 4 | 9 |
+| c6 | 🎬 PPT 演示与交付 | 4 | 11 |
+| c7 | 📕 PDF：阅读、编辑与转换 | 4 | 9 |
+| c8 | 🔄 办公协作与效率 | 4 | 11 |
 
 课程节奏：**c1–c2 把「文档」做规范**（排版 → 长文档结构）→ **c3–c4 把「数据」算明白**（公式 → 分析可视化）→ **c5–c6 把「汇报」讲清楚**（设计 → 交付）→ **c7–c8 把「交付与协作」收好**（PDF → 权限与效率）。
 
@@ -135,8 +135,8 @@ python -m http.server 8080
 | 字段 | 值 |
 | --- | --- |
 | About（一行） | `R0:hello office · 从0开始的Office` |
-| Description（中文） | Word / Excel / PPT / PDF 四件套的办公软件自学课程，**Microsoft Office 与 WPS 双路线**——同一个概念，两条软件路线各给一条操作路径，点一下路线就能对照着找菜单。8 章 32 节 · 测评 56 题 · 实战 8 个 · 名词库 42 条 · 概念地图 18 节点；纯静态单文件应用，零依赖、可离线。 |
-| Description (English) | A self-study course for office software — Word, Excel, PowerPoint and PDF — with a Microsoft Office route and a WPS route: every lesson carries its own ribbon path, so switching shows exactly where to click. 8 chapters / 32 lessons, 56 questions, 8 labs, 42 terms, 18-node concept map. |
+| Description（中文） | Word / Excel / PPT / PDF 四件套的办公软件自学课程，**Microsoft Office 与 WPS 双路线**——同一个概念，两条软件路线各给一条操作路径，点一下路线就能对照着找菜单。8 章 32 节 · 测评 80 题 · 实战 8 个 · 名词库 52 条 · 概念地图 26 节点；纯静态单文件应用，零依赖、可离线。 |
+| Description (English) | A self-study course for office software — Word, Excel, PowerPoint and PDF — with a Microsoft Office route and a WPS route: every lesson carries its own ribbon path, so switching shows exactly where to click. 8 chapters / 32 lessons, 80 questions, 8 labs, 52 terms, 26-node concept map. |
 | Website | `https://huangdouplone.github.io/R0-hello-office/` |
 | Topics | 见文末 [🏷️ Topics](#-topics) |
 
@@ -148,6 +148,8 @@ python -m http.server 8080
 | `office-data.js` | 课程数据：章节 / 课节 / 题库 / 实战 / 名词 / 工作流 / 概念图 |
 | `lang-en.js` | 由 `*_en` 字段派生标题级英文表 |
 | `office-extra-data.js` | 扩展包：追加题目与名词，并重建名词英文表 |
+| `office-deepen-a.js` / `office-deepen-b.js` | **课程深化层**：把每节从 3 要点扩到 6~7 要点（id 与标题不变，进度零迁移） |
+| `office-expand.js` | **深化配套扩展层**：题库 +24 题、概念图 +8 节点/+12 边、词典 +10 条、每节建议时长、+5 成就 |
 | `office-sw.js` | Service Worker（离线缓存） |
 | `README.md` / `LICENSE.md` | 说明与许可 |
 
@@ -177,13 +179,13 @@ python -m http.server 8080
 | Metric | Value |
 | --- | --- |
 | Chapters / lessons | **8 / 32** |
-| Quiz questions | **56** (choice 29 · judge 19 · fill 8) |
+| Quiz questions | **80** (choice 43 · judge 25 · fill 12) |
 | Quiz length | 12 site-wide; **plus a per-chapter quiz** drawing 4 from that chapter's bank |
 | Hands-on labs | **8** |
-| Term library | **42 entries** in 4 categories, with search and a 9-item collapsed default |
-| Concept map | **18 nodes / 24 relations**, interactive |
+| Term library | **52 entries** in 4 categories, with search and a 9-item collapsed default |
+| Concept map | **26 nodes / 36 relations**, interactive |
 | Workflow | **8 steps** + a quarterly review pack example |
-| Themes / achievements | 16 / 10 |
+| Themes / achievements | 16 / 15 |
 
 ### 3. Two routes
 
