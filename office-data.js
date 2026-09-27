@@ -512,8 +512,13 @@ window.OFFICE_LABS = [
     req: ["Word/WPS 文字", "Excel/WPS 表格", "云文档"], xp: 30,
     starter: "1. 做周报模板：固定样式、日期域、本周/下周/风险 三个小节\n2. 另存为模板文件（.dotx / WPS 模板），放到共享目录\n3. 上传云文档，把共享权限设为「评论」，复制链接发给同事\n4. 让同事在评论里提意见，你确认后再改正文，观察版本历史",
     hint: "权限要按「最小必要」给：收集意见只需要「评论」，不必给「编辑」。" }
+,,
+  { id: "lab9", stage: "c9", t: "用 AI 把一份周报跑通全流程", t_en: "Run a Weekly Report through AI End-to-End",
+    req: ["任一 AI 助手（网页或本地均可）", "一份你写过的旧周报当素材"], xp: 30,
+    starter: "1. 让 AI 起草：把本周三件事用几句话口述，请它生成结构化初稿\n2. 喂上下文：把旧周报与关键数据一起粘贴，要求沿用既有格式与口径\n3. 把关：逐句核对数字与事实，把「AI 编的」与「资料有的」分开标注\n4. 固化：把可复用的部分写成模板或固定提示词，下次直接调用\n5. 反思：哪一步省时最多？哪一步必须人工兜底？",
+    hint: "AI 最擅长的不是替你写，而是替你把「空白页」变成「有结构的初稿」；核对与署名责任永远在你。",
+    hint_en: "What AI does best is not writing for you — it is turning a blank page into a structured first draft. Verification and signature stay with you." }
 ];
-
 /* ============ 名词库（30 条 · 4 类） ============ */
 window.OFFICE_TERMS = [
   /* —— 文档与格式 —— */

@@ -133,7 +133,8 @@ window.OFFICE_LAB_BODY_EN = {
   lab5: { starter: "1. Open the slide master, set the title to 32pt and body to 20pt, and adjust placeholder positions\n2. Set the theme colours: primary + accent + neutral grey\n3. Close the master and create 5 slides using the title, title-and-content and two-content layouts\n4. Check: are title position and size identical across all slides?" },
   lab6: { starter: "1. Build a five-slide structure: conclusion, three arguments, action item\n2. Put only keywords plus one image on each slide and write the script in the notes\n3. Add a fade entrance animation to the bullets, uniformly 0.3s, starting after previous\n4. Rehearse with timings and export a PDF as backup" },
   lab7: { starter: "1. Prepare a scanned or screenshot PDF (photograph one page of a document with your phone)\n2. Run OCR and confirm the text can now be searched\n3. Use Redact to permanently remove the phone-number region, then copy that area to confirm nothing is recoverable\n4. Add a permissions password forbidding copy and edit, and save a second copy" },
-  lab8: { starter: "1. Build a weekly-report template: fixed styles, a date field, and this week / next week / risks sections\n2. Save it as a template file (.dotx or a WPS template) in the shared folder\n3. Upload to cloud docs, set sharing to comment-only, and send the link to colleagues\n4. Have them comment, edit the body only after you confirm, and watch the version history" }
+  lab8: { starter: "1. Build a weekly-report template: fixed styles, a date field, and this week / next week / risks sections\n2. Save it as a template file (.dotx or a WPS template) in the shared folder\n3. Upload to cloud docs, set sharing to comment-only, and send the link to colleagues\n4. Have them comment, edit the body only after you confirm, and watch the version history" },
+  lab9: { req: ["Any AI assistant (web or local)", "An old weekly report of yours as source material"], starter: "1. Draft: dictate this week's three items in a few sentences and have AI produce a structured first draft\n2. Feed context: paste the old report plus key figures; ask it to follow the existing format and wording\n3. Verify: check every number and fact, marking which claims are AI-invented and which are grounded\n4. Settle: turn the reusable parts into a template or a fixed prompt for next time\n5. Reflect: which step saved the most time? Which step must stay human?", hint: "What AI does best is not writing for you - it is turning a blank page into a structured first draft. Verification and signature stay with you." },
 };
 
 /* 提示正文的英文：上面每张卡只写了 starter，hint 缺位 → 英文态整条提示回落中文。
@@ -146,7 +147,8 @@ var LAB_HINT_EN = {
   lab5: "If one slide ignores the master, it was most likely hand-formatted; use Reset to hand it back to the master.",
   lab6: "Deliberate white space on the slide plus the script in the notes is what keeps the audience's attention on you.",
   lab7: "To check the redaction really worked, try copying the covered spot: if the original text copies out, you only drew a rectangle over it.",
-  lab8: "Grant rights on the least-privilege principle: collecting opinions only needs Comment, not Edit."
+  lab8: "Grant rights on the least-privilege principle: collecting opinions only needs Comment, not Edit.",
+  lab9: "What AI does best is not writing for you - it is turning a blank page into a structured first draft. Verification and signature stay with you.",
 };
 Object.keys(LAB_HINT_EN).forEach(function (k) {
   if (window.OFFICE_LAB_BODY_EN[k]) window.OFFICE_LAB_BODY_EN[k].hint = LAB_HINT_EN[k];

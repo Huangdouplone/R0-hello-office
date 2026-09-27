@@ -454,6 +454,8 @@ body.sbCollapsed .sb-toggle{display:flex;}
 .stage:nth-child(3n+3) .st-ic{background:rgba(240,160,32,.15);}
 .lesson .l-dot{color:var(--blue);font-size:11.5px;font-weight:700;}
 .lesson.done .l-dot{color:var(--green);}
+/* 拓展徽标（教学审计 2026-09-27） */
+.ext-badge{display:inline-block;font-size:10px;vertical-align:middle;margin-left:6px;padding:1px 7px;border-radius:10px;background:color-mix(in srgb,var(--accent,#2f7ed8) 14%,transparent);color:var(--accent,#2f7ed8);font-weight:600;}
 </style>
 </head>
 <body>
@@ -627,6 +629,7 @@ body.sbCollapsed .sb-toggle{display:flex;}
   <section id="settingSec" class="section">
     <h2>⚙️ <span data-i18n="设置与数据">设置与数据</span></h2>
     <div class="set-row"><label data-i18n="学习者昵称">学习者昵称</label><input type="text" id="nameInput" class="inp" placeholder="例如：小明" data-i18n-ph="例如：小明"><span class="set-hint" data-i18n="会出现在日报与署名里">会出现在日报与署名里</span></div>
+  
     <div class="set-row"><label data-i18n="每日新学上限（节）">每日新学上限（节）</label><input type="number" id="goalInput" class="inp" min="1" max="10" value="3"><span class="set-hint" data-i18n="建议 1~3 节，贵在坚持">建议 1~3 节，贵在坚持</span></div>
     <h3 class="shop-h" style="margin:14px 0 8px"><span data-i18n="主页风格商店">主页风格商店</span> <span class="tag" data-i18n="星币解锁 · 纯外观">星币解锁 · 纯外观</span></h3>
     <div class="set-hint" data-i18n="学习 / 测评赚取 🪙 星币；星币仅用于解锁主页配色，绝不 pay-to-win。">学习 / 测评赚取 🪙 星币；星币仅用于解锁主页配色，绝不 pay-to-win。</div>
@@ -660,8 +663,9 @@ body.sbCollapsed .sb-toggle{display:flex;}
   <div class="set-hint" id="tdHint" style="margin-top:16px"></div>
 </aside>
 
-<script src="office-data.js?v=2"></script>
-<script src="lang-en.js?v=3"></script>
+<script src="office-data.js?v=3"></script>
+<script src="lang-en.js?v=4"></script>
+<script src="ped-ext.js?v=1"></script>
 <script src="office-extra-data.js?v=1"></script>
 <script src="office-deepen-a.js?v=2"></script>
 <script src="office-deepen-b.js?v=2"></script>
@@ -748,6 +752,7 @@ function renderRouteUI() {
 function sysLocale(){ var l = String(navigator.language || (navigator.userLanguage || "")).toLowerCase(); return l.indexOf("zh") === 0 ? "zh" : "en"; }
 var LANG = (data.settings && data.settings.lang) || sysLocale();
 var I18N_EN = {
+  "复制步骤":"Copy steps",  "✓ 标记完成（+":"Mark done (",  " XP）":" XP)",  "已完成":"Done",  "实战完成！":"Lab done!",
   "R0：从0开始的Office": "R0:hello office",
   "🗂️ R0:hello agent · 从零开始的大模型": "🗂️ R0:hello agent · Large Models from Zero",
   "操作路径": "Where to click","切换软件路线":"Switch software track","打开导航":"Open navigation","导航":"Navigation","概念地图":"Concept Map","界面语言 / Interface language":"Interface language",
@@ -1349,7 +1354,7 @@ function renderTerms() {
   var limited = !TERM_OPEN_ALL && !q && !TERM_CAT_FILTER;
   var show = limited ? list.slice(0, TERM_DEFAULT_N) : list;
   var card = function (x) {
-    var h = '<div class="term"><h3>' + esc(termEn(x.term, "term") || x.term) + "</h3>";
+    var h = '<div class="term"><h3>' + esc(termEn(x.term, "term") || x.term) + (window.OFFICE_EXT_MARKS && OFFICE_EXT_MARKS.terms && OFFICE_EXT_MARKS.terms[x.term] ? ' <span class="ext-badge">📖 ' + (LANG === "en" ? "Extended" : "拓展") + '</span>' : "") + "</h3>";
     if (x.cat) h += '<div class="term-cat">' + esc(catName(x.cat)) + "</div>";
     h += '<div class="short">' + esc(termEn(x.term, "short") || x.short) + "</div>";
     var detList = termDetEn(x.term) || x.detail || [];
@@ -1446,12 +1451,16 @@ function renderLabs() {
     : (LABS.length + " 题 · " + order.length + " 个章节组 · 默认收起");
 }
 function labCardHtml(x) {
-  var h = '<div class="lab"><h3>' + esc(labEn(x.id, "t") || x.t) + "</h3>";
+  var labDone = data.labs && data.labs[x.id] && data.labs[x.id].done;
+  var h = '<div class="lab"><h3>' + esc(labEn(x.id, "t") || x.t) +
+    (labDone ? ' <span class="ext-badge">✅ ' + t("已完成") + (data.labs[x.id].date ? " · " + data.labs[x.id].date : "") + "</span>" : "") + "</h3>";
   var reqEn = labBodyEn(x.id, "req"); var reqList = reqEn || (x.req || []); h += '<div class="req">' + (LANG === "en" ? "Requires: " : "需要：") + esc(reqList.map(prodEn).join(LANG === "en" ? ", " : "、")) + "</div>";
   var stEn = labBodyEn(x.id, "starter"); h += "<pre>" + crAttr() + esc(stEn || x.starter) + "</pre>";
   var hintEn = labBodyEn(x.id, "hint"); h += '<div class="hint" id="hint-' + x.id + '">' + esc(hintEn || x.hint) + "</div>";
-  h += '<div class="acts"><button class="btn small green" data-act="copy-lab" data-id="' + x.id + '">' + t("复制代码") + "</button>";
-  h += '<button class="btn small ghost" data-act="toggle-hint" data-id="' + x.id + '">' + t("看提示") + "</button></div>";
+  h += '<div class="acts"><button class="btn small green" data-act="copy-lab" data-id="' + x.id + '">' + t("复制步骤") + "</button>";
+  h += '<button class="btn small ghost" data-act="toggle-hint" data-id="' + x.id + '">' + t("看提示") + "</button>";
+  h += '<button class="btn small ' + (labDone ? "ghost" : "amber") + '" data-act="lab-done" data-id="' + x.id + '"' + (labDone ? " disabled" : "") + '>' +
+    (labDone ? t("已完成") : t("✓ 标记完成（+") + x.xp + t(" XP）")) + "</button></div>";
   return h + "</div>";
 }
 function toggleLabGroup(sid) {
@@ -2000,6 +2009,16 @@ document.addEventListener("click", function (e) {
   else if (act === "quiz-start") { startQuiz("all"); }
   else if (act === "quiz-pick") { quizPick(parseInt(el.dataset.q, 10), parseInt(el.dataset.o, 10)); }
   else if (act === "quiz-submit") { submitQuiz(); }
+  else if (act === "lab-done") {
+    var lab = LABS.find(function (x) { return x.id === id; }); if (!lab) return;
+    data.labs = data.labs || {};
+    if (!data.labs[id]) {
+      data.labs[id] = { done: true, date: todayStr() };
+      gainXp(lab.xp || 20); gainCoins(Math.round((lab.xp || 20) / 2));
+      saveData(); checkAchievements(); renderLabs(); renderDash(); renderAchievements();
+      toast(t("实战完成！") + " +" + (lab.xp || 20) + " XP");
+    }
+  }
   else if (act === "copy-lab") { var lab = LABS.find(function (x) { return x.id === id; }); if (lab) copyText(crComment() + lab.starter); }
   else if (act === "lab-group") { toggleLabGroup(id); }
   else if (act === "lab-toggle-all") { toggleAllLabs(id); }
@@ -2350,7 +2369,8 @@ var ACHIEVEMENTS = [
   { id: "streak7", icon: "🔥", name: "一周坚持", name_en: "7-Day Streak", desc: "连续打卡 7 天", desc_en: "Check in 7 days in a row", check: function(){ return (data.streak.days||0) >= 7; } },
   { id: "timer1h", icon: "⏱️", name: "专注一小时", name_en: "1 Hour Focus", desc: "累计学习 1 小时", desc_en: "Study for 1 hour total", check: function(){ return (data.timer.todaySeconds||0) + getTotalStudySeconds() >= 3600; } },
   { id: "quiz_perfect", icon: "🎯", name: "完美测评", name_en: "Perfect Quiz", desc: "测评答对全部题目", desc_en: "Score 100% on a quiz", check: function(){ return (data.quizBest.best||0) >= 12; } },
-  { id: "first_lab", icon: "💻", name: "动手第一", name_en: "First Lab", desc: "完成第一个实战", desc_en: "Complete your first lab", check: function(){ return (data.completed.lab1||false); } },
+  { id: "first_lab", icon: "💻", name: "动手第一", name_en: "First Lab", desc: "完成第一个实战", desc_en: "Complete your first lab", check: function(){ return Object.keys(data.labs || {}).length >= 1; } },
+  { id: "lab_all", icon: "🛠️", name: "实战全清", name_en: "All Labs Done", desc: "完成全部 9 个实战任务", desc_en: "Complete all 9 labs", check: function(){ var L = window.OFFICE_LABS || []; return L.length > 0 && L.every(function (x) { return data.labs && data.labs[x.id] && data.labs[x.id].done; }); } },
   { id: "level5", icon: "📈", name: "五级学徒", name_en: "Level 5", desc: "达到 5 级", desc_en: "Reach level 5", check: function(){ return levelInfo(data.xp).level >= 5; } },
   { id: "rich", icon: "🪙", name: "小有积蓄", name_en: "Coin Collector", desc: "积攒 100 星币", desc_en: "Earn 100 coins", check: function(){ return (data.coins||0) >= 100; } }
 ];
@@ -2386,7 +2406,7 @@ if (typeof OFFICE_EXPAND !== "undefined" && typeof ACHIEVEMENTS !== "undefined" 
    ★ 必须声明在 renderAll() 之前：var 只提升不赋值，放后面首次渲染就会读到 undefined。 */
 var ACH_GRP = {
   first_lesson: "habit", streak3: "habit", streak7: "habit", timer1h: "habit",
-  quiz_perfect: "practice", first_lab: "practice", quiz_five: "practice",
+  quiz_perfect: "practice", first_lab: "practice", lab_all: "practice", quiz_five: "practice",
   ten_lessons: "milestone", level5: "milestone", rich: "milestone",
   all_lessons: "chapter", doc_master: "chapter", sheet_master: "chapter",
   deck_master: "chapter", dual_route: "chapter"
