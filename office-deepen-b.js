@@ -49,7 +49,7 @@ const DEEPEN_OFFICE_B = {
         "对比（Contrast）：标题与正文要有明确的字号/字重/颜色差别，否则读者不知道该先看什么。",
         "重复（Repetition）：同一层级的元素保持一致的样式与位置（同样的字号、相同的位置、统一的色块），形成节奏感。",
         "亲密（Proximity）：相关的内容放得近、不相关的拉开距离——分组靠间距表达，不靠边框。",
-        "四原则的共同目标只有一个：**降低读者的阅读成本**，让视线按你设计的顺序移动。",
+        "四原则的共同目标只有一个：降低读者的阅读成本，让视线按你设计的顺序移动。",
         "实用骨架：标题 24~32pt、正文 18~24pt、四周留白不小于页宽的 5%、一页一个观点且要点不超过 6 条。",
         "检验方法：把页面缩到 25% 看——如果这时还能看出区块分组与重点，说明排版是成立的。"
       ],
@@ -58,7 +58,7 @@ const DEEPEN_OFFICE_B = {
         "Contrast: titles and body must differ clearly in size, weight or colour, or the eye does not know where to start.",
         "Repetition: same-level elements share style and position, creating rhythm.",
         "Proximity: related items sit close and unrelated ones apart — grouping through spacing, not borders.",
-        "All four serve one goal: **lowering the reader's cost**, moving the eye in the order you designed.",
+        "All four serve one goal: lowering the reader's cost, moving the eye in the order you designed.",
         "Practical skeleton: titles 24–32pt, body 18–24pt, margins ≥5% of page width, one idea per slide and ≤6 bullets.",
         "Test: zoom out to 25% — if grouping and emphasis still read, the layout works."
       ],
@@ -76,7 +76,7 @@ const DEEPEN_OFFICE_B = {
     "c5l3": {
       title: "配色与字体：少即是多", title_en: "Colour & Type: Less Is More",
       summary: [
-        "配色的极简方案：**一个主色 + 一个强调色 + 中性灰阶**；主色承担结构与品牌，强调色只给需要跳出来的重点。",
+        "配色的极简方案：一个主色 + 一个强调色 + 中性灰阶；主色承担结构与品牌，强调色只给需要跳出来的重点。",
         "强调色的面积建议不超过 10%——用得越多，重点越不突出。",
         "字体最多两种：一种标题、一种正文；中文可用思源黑体/微软雅黑，西文可用 Calibri/Inter，同层级字号必须一致。",
         "对比度是底线：深色背景用够亮的浅字，浅色背景用够黑的深字；投影仪的对比损失比显示器大得多，宁可保守。",
@@ -85,7 +85,7 @@ const DEEPEN_OFFICE_B = {
         "检查方法：把幻灯片转成灰度看——如果灰度下层次依然清楚，说明不是靠颜色在撑结构。"
       ],
       summary_en: [
-        "Minimal colour scheme: **one primary + one accent + neutrals**; the primary carries structure and brand, the accent marks emphasis.",
+        "Minimal colour scheme: one primary + one accent + neutrals; the primary carries structure and brand, the accent marks emphasis.",
         "Keep the accent under about 10% of the area — more emphasis means less emphasis.",
         "At most two typefaces: one for headings, one for body; keep sizes consistent within a level.",
         "Contrast is the floor: light text on dark must be bright enough and dark text on light dark enough; projectors lose more contrast than monitors.",
@@ -107,7 +107,7 @@ const DEEPEN_OFFICE_B = {
     "c5l4": {
       title: "把数据变成一张图", title_en: "Turn Data into a Diagram",
       summary: [
-        "幻灯片里的图表服务于「一个结论」，不是数据仓库：**先把结论写出来，再决定用哪种图**。",
+        "幻灯片里的图表服务于「一个结论」，不是数据仓库：先把结论写出来，再决定用哪种图。",
         "常用图示与结论的对应：流程用箭头/流程图、结构用层级图、对比用双栏或表、时间用时间线、占比用饼或环图。",
         "图表必须可被一句话讲清：如果一张图需要解释三分钟才能懂，说明它承载了太多。",
         "正文只放提炼后的图，完整表格放附录页备查——否则正文字号被迫缩到看不清。",
@@ -116,7 +116,7 @@ const DEEPEN_OFFICE_B = {
         "一页放多张小图时，要保证它们对齐且尺寸一致，否则页面立刻显得凌乱。"
       ],
       summary_en: [
-        "Charts in slides serve one conclusion, not a warehouse of data: **write the conclusion first, then pick the chart**.",
+        "Charts in slides serve one conclusion, not a warehouse of data: write the conclusion first, then pick the chart.",
         "Conclusion-to-shape mapping: process → arrows/flow, structure → hierarchy, comparison → two columns or a table, time → timeline, share → pie or donut.",
         "A chart must be explainable in one sentence; three minutes of explanation means it carries too much.",
         "Keep the distilled chart in the body and the full table in an appendix — otherwise body text shrinks to illegibility.",
@@ -140,7 +140,7 @@ const DEEPEN_OFFICE_B = {
       title: "动画与切换：只用来引导视线", title_en: "Animation: Guide the Eye Only",
       summary: [
         "切换是「页与页之间」的效果，动画是「页内元素」的出现/强调/消失——两者都应服务节奏，而不是炫技。",
-        "最实用的两类：**进入**（按顺序逐条出现，控制讲述节奏）与**强调**（变色/放大，指出重点）。",
+        "最实用的两类：进入（按顺序逐条出现，控制讲述节奏）与强调（变色/放大，指出重点）。",
         "旋转、弹跳这类效果在正式汇报里通常是负分：观众的注意力被引到效果上，而不是内容上。",
         "同类元素要用同一动画并统一「随上一动画之后」，避免每页的方向与时长都不一样。",
         "时长建议 0.3~0.5 秒：太慢拖节奏、太快看不出顺序。",
@@ -149,7 +149,7 @@ const DEEPEN_OFFICE_B = {
       ],
       summary_en: [
         "A transition acts between slides; an animation acts on elements within a slide. Both should serve pacing, not showmanship.",
-        "The two useful kinds: **entrance** (reveal items in order, controlling rhythm) and **emphasis** (highlight a point).",
+        "The two useful kinds: entrance (reveal items in order, controlling rhythm) and emphasis (highlight a point).",
         "Spins and bounces usually cost credibility: attention goes to the effect, not the message.",
         "Give similar elements the same animation and consistent timing so pages feel coherent.",
         "Keep durations around 0.3–0.5s: slower drags, faster hides the order.",
@@ -170,7 +170,7 @@ const DEEPEN_OFFICE_B = {
     "c6l2": {
       title: "放映、备注与排练计时", title_en: "Presenting, Notes & Rehearsal",
       summary: [
-        "放映三件套要提前熟悉：**演讲者视图**（看备注与下一页）、激光笔/画笔、以及快捷键（B 黑屏、数字+回车跳页）。",
+        "放映三件套要提前熟悉：演讲者视图（看备注与下一页）、激光笔/画笔、以及快捷键（B 黑屏、数字+回车跳页）。",
         "把要讲的话写进「备注」而不是幻灯片正文——观众看画面、你看备注，两者不打架。",
         "演讲者视图需要正确连接外接显示：一台给观众看全屏放映，一台给你看备注与计时。",
         "排练计时记录每页用时，既能校准讲稿长度，也能在展台自动播放时使用。",
@@ -179,7 +179,7 @@ const DEEPEN_OFFICE_B = {
         "现场最常见的失误是「照着幻灯片念」——因为把讲稿写进了正文；请务必只把关键词放页面上。"
       ],
       summary_en: [
-        "Know three things before presenting: **Presenter View** (notes and next slide), the laser/pen tools, and shortcuts (B for black screen, number+Enter to jump).",
+        "Know three things before presenting: Presenter View (notes and next slide), the laser/pen tools, and shortcuts (B for black screen, number+Enter to jump).",
         "Put what you will say into the notes, not the slide — the audience sees the slide, you see your notes.",
         "Presenter View needs the external display set up correctly: full-screen for the audience, notes and timer for you.",
         "Rehearse with timing: it calibrates length and can drive an unattended kiosk loop.",
@@ -269,7 +269,7 @@ const DEEPEN_OFFICE_B = {
         "「不可编辑」不是缺陷而是特性：它保证接收方看到的就是你发出去的那个样子。",
         "但它同时也意味着：要改内容，通常得回到源文件（Word/PPT）改完再导，而不是在 PDF 上硬改。",
         "PDF 也有「文字层」：带文字层的可以用查找、复制与检索；扫描件没有，只有图像。",
-        "判断该给哪种格式的简单规则：**要对方看 → PDF；要一起改 → 源文件**。",
+        "判断该给哪种格式的简单规则：要对方看 → PDF；要一起改 → 源文件。",
         "长期归档还有 PDF/A 这一档：为长期保存而标准化，禁止依赖外部字体与加密等内容。"
       ],
       summary_en: [
@@ -278,7 +278,7 @@ const DEEPEN_OFFICE_B = {
         "Resisting edits is a feature, not a flaw: recipients see precisely what you sent.",
         "It also means content changes should happen in the source file and be re-exported, not patched in the PDF.",
         "PDFs can carry a text layer — searchable and copyable — while scans are pure images.",
-        "Simple rule: **for reading → PDF; for co-editing → source**.",
+        "Simple rule: for reading → PDF; for co-editing → source.",
         "For long-term archiving there is PDF/A, a standardised subset that avoids external dependencies."
       ],
       code: "选择格式的判断：\n  要给对方看、要固定版式 → PDF\n  要一起改、要复用内容   → Word / Excel / PPT 源文件\n  要长期归档、要求规范   → PDF/A",
@@ -358,19 +358,19 @@ const DEEPEN_OFFICE_B = {
       title: "表单、密码与脱敏", title_en: "Forms, Passwords & Redaction",
       summary: [
         "PDF 表单可以填写与提交，也能批量汇总数据；前提是「表单域」确实存在，纯打印稿无法填写。",
-        "权限控制有两层：**打开密码**（谁能看）与**权限密码**（能否打印/复制/编辑），两者目的不同，别设混了。",
+        "权限控制有两层：打开密码（谁能看）与权限密码（能否打印/复制/编辑），两者目的不同，别设混了。",
         "还可以单独限制复制文本与提取页面，用于只供阅读的材料。",
         "对外发送前要脱敏：隐藏身份证号、手机号、账号等敏感字段。",
-        "⚠️ **画黑色矩形覆盖是无效的**——底层文字仍在，复制粘贴就能看到原文；必须使用「密文/涂黑（Redact）」功能真正删除。",
+        "⚠️ 画黑色矩形覆盖是无效的——底层文字仍在，复制粘贴就能看到原文；必须使用「密文/涂黑（Redact）」功能真正删除。",
         "验证脱敏是否生效的最简单方法：试着复制被遮盖的位置，能复制出原文就说明没做好。",
         "图片型 PDF 的脱敏还要注意：图像里的文字不会被文字层脱敏处理，需要单独处理图像区域。"
       ],
       summary_en: [
         "PDF forms can be filled and submitted, and responses aggregated — but only if real form fields exist; a printed layout cannot be filled.",
-        "There are two permission layers: a **document open password** (who can view) and a **permissions password** (print/copy/edit).",
+        "There are two permission layers: a document open password (who can view) and a permissions password (print/copy/edit).",
         "You can also disable text copying and page extraction for read-only material.",
         "Redact sensitive fields before sending: ID numbers, phone numbers, account numbers.",
-        "⚠️ **Drawing a black rectangle is useless** — the text layer remains and copying reveals it. Use the Redact tool to actually delete it.",
+        "⚠️ Drawing a black rectangle is useless — the text layer remains and copying reveals it. Use the Redact tool to actually delete it.",
         "Test: copy the covered area; if text comes out, redaction failed.",
         "For image-only PDFs, text inside images is not covered by text-layer redaction — handle those areas separately."
       ],
@@ -390,7 +390,7 @@ const DEEPEN_OFFICE_B = {
       title: "云文档与实时协作", title_en: "Cloud Docs & Real-time Co-editing",
       summary: [
         "云文档的核心价值是「一份文件、一个版本」：多人同时编辑、实时看到彼此光标、自动保存、随时回滚。",
-        "分享时按需给权限：**查看 / 评论 / 编辑** 三档；给「编辑」等于给了改动权与删除权，能只给评论就别给编辑。",
+        "分享时按需给权限：查看 / 评论 / 编辑 三档；给「编辑」等于给了改动权与删除权，能只给评论就别给编辑。",
         "「获得链接的人」这一档要格外小心：它可能包含外部人员，公开分享前务必确认范围。",
         "版本历史是安全带：改坏了可以直接回滚到某个时点，重要节点还能命名保存。",
         "协作礼仪：先在评论里对齐，再落到正文；直接在别人段落上大改最伤协作效率。",
@@ -399,7 +399,7 @@ const DEEPEN_OFFICE_B = {
       ],
       summary_en: [
         "The core value is one file, one version: simultaneous editing, live cursors, autosave and rollback.",
-        "Grant by need: **view / comment / edit**. Editing grants modification and deletion rights — comment is safer.",
+        "Grant by need: view / comment / edit. Editing grants modification and deletion rights — comment is safer.",
         "Be careful with 'anyone with the link': it may include outsiders.",
         "Version history is the safety belt: roll back to any point and name key milestones.",
         "Etiquette: align in comments first, then edit; rewriting someone's section wrecks collaboration.",
@@ -422,7 +422,7 @@ const DEEPEN_OFFICE_B = {
       summary: [
         "把反复用到的东西做成模板：公司文档模板（含样式、页眉页脚、logo）、周报模板、报价表模板、汇报 PPT 模板。",
         "模板的价值在于「约束」：新文档一打开就带着正确的样式与结构，新人也能产出统一的格式。",
-        "维护方式：模板放在共享位置，标注**版本与更新日期**；改版时统一替换，避免多份来源不明的模板并行。",
+        "维护方式：模板放在共享位置，标注版本与更新日期；改版时统一替换，避免多份来源不明的模板并行。",
         "值得模板化的三类：文档（周报/会议纪要/方案/报告）、表格（预算/报销/台账/排期）、演示（汇报/提案/复盘）。",
         "模板要「够用就好」：塞满所有可能的章节反而没人愿意用，留出可删减的空间更实用。",
         "把样式、主题色、字体方案一起固化进模板，等于把排版经验变成了默认行为。",
@@ -431,7 +431,7 @@ const DEEPEN_OFFICE_B = {
       summary_en: [
         "Turn recurring artefacts into templates: company documents (styles, headers, logo), weekly reports, quotes, decks.",
         "Templates constrain: new files start correct, so even newcomers produce consistent output.",
-        "Maintain them centrally with a **version and update date**; replace in one go when revising.",
+        "Maintain them centrally with a version and update date; replace in one go when revising.",
         "Three good categories: documents (reports, minutes, proposals), sheets (budget, ledger, schedule), decks (review, pitch, retro).",
         "Keep them lean: a template stuffed with every possible section gets ignored.",
         "Freeze styles, theme colours and fonts into the template — that turns layout know-how into a default.",
@@ -452,19 +452,19 @@ const DEEPEN_OFFICE_B = {
       title: "快捷键与效率习惯", title_en: "Shortcuts & Working Habits",
       summary: [
         "通用快捷键：Ctrl+C/V/X/Z/Y、Ctrl+F 查找、Ctrl+H 替换、Ctrl+S 保存、Ctrl+A 全选、F4 重复上一步（在 Excel 里还是切换引用方式）。",
-        "表格里最省时的几个：**Alt+=** 自动求和、**Ctrl+Shift+L** 筛选开关、**Ctrl+E** 快速填充、双击填充柄向下填充。",
+        "表格里最省时的几个：Alt+= 自动求和、Ctrl+Shift+L 筛选开关、Ctrl+E 快速填充、双击填充柄向下填充。",
         "文档里最省时的几个：Ctrl+Enter 插入分页符、格式刷双击可连续刷、Ctrl+Shift+C/V 复制/粘贴格式。",
         "演示里：Ctrl+D 复制对象、Shift+F5 从当前页放映、B/W 黑屏白屏。",
-        "效率的本质不是手快，而是**不做重复劳动**：能自动就自动（样式、模板、透视表、条件格式、公式），能批量就不逐个。",
+        "效率的本质不是手快，而是不做重复劳动：能自动就自动（样式、模板、透视表、条件格式、公式），能批量就不逐个。",
         "习惯比技巧重要：把每隔几天就要做一次的操作记下来，逐个找它的快捷键或自动化办法，一年能省下几十小时。",
         "别一次背二十个：每周练熟两个，一个月后自然形成肌肉记忆。"
       ],
       summary_en: [
         "Universal: Ctrl+C/V/X/Z/Y, Ctrl+F, Ctrl+H, Ctrl+S, Ctrl+A, F4 (repeat last action; in Excel also cycles references).",
-        "In sheets: **Alt+=** autosum, **Ctrl+Shift+L** toggles filters, **Ctrl+E** flash fill, double-click the fill handle to fill down.",
+        "In sheets: Alt+= autosum, Ctrl+Shift+L toggles filters, Ctrl+E flash fill, double-click the fill handle to fill down.",
         "In documents: Ctrl+Enter page break, double-click Format Painter for repeated use, Ctrl+Shift+C/V for format copy/paste.",
         "In slides: Ctrl+D duplicate, Shift+F5 present from current slide, B/W for black/white screen.",
-        "Efficiency is not fast hands; it is **not doing repeated work** — automate (styles, templates, pivots, conditional formatting) and batch.",
+        "Efficiency is not fast hands; it is not doing repeated work — automate (styles, templates, pivots, conditional formatting) and batch.",
         "Habits beat tricks: list operations you repeat every few days and find a shortcut or automation for each.",
         "Don't learn twenty at once — two per week and it becomes muscle memory in a month."
       ],
@@ -482,7 +482,7 @@ const DEEPEN_OFFICE_B = {
     "c8l4": {
       title: "数据安全与合规", title_en: "Data Safety & Compliance",
       summary: [
-        "三条底线：**本地留备份、敏感信息不外发、共享链接给最小范围**；云文档很方便，但方便与边界要同时考虑。",
+        "三条底线：本地留备份、敏感信息不外发、共享链接给最小范围；云文档很方便，但方便与边界要同时考虑。",
         "敏感文件对外前做脱敏（见 c7-4）；内部共享也要看权限，尤其避免「获得链接的人均可编辑」。",
         "重要交付要留痕：导出 PDF、记录发送时间与对象，必要时要求回执。",
         "合同类文件用专业电子签平台，而不是图片签名（见 c7-2）。",
@@ -491,7 +491,7 @@ const DEEPEN_OFFICE_B = {
         "发文件前三个问题：要不要脱敏？接收范围是否最小？是否需要留痕与回执？"
       ],
       summary_en: [
-        "Three bottom lines: **keep a local backup, never send sensitive data out, share with the smallest scope**. Convenience and boundaries must be weighed together.",
+        "Three bottom lines: keep a local backup, never send sensitive data out, share with the smallest scope. Convenience and boundaries must be weighed together.",
         "Redact before external sharing (see c7-4); even internal sharing needs the right permissions, especially avoid 'anyone with the link'.",
         "Keep evidence for important deliveries: export PDF, log time and recipients, request receipts when needed.",
         "Use an e-signature platform for contracts, not an image signature (see c7-2).",

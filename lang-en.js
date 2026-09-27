@@ -136,4 +136,20 @@ window.OFFICE_LAB_BODY_EN = {
   lab8: { starter: "1. Build a weekly-report template: fixed styles, a date field, and this week / next week / risks sections\n2. Save it as a template file (.dotx or a WPS template) in the shared folder\n3. Upload to cloud docs, set sharing to comment-only, and send the link to colleagues\n4. Have them comment, edit the body only after you confirm, and watch the version history" }
 };
 
+/* 提示正文的英文：上面每张卡只写了 starter，hint 缺位 → 英文态整条提示回落中文。
+   单独补一张表而不是逐行改，是为了让「哪几张卡还缺英文」一眼可数。 */
+var LAB_HINT_EN = {
+  lab1: "The point is changing the style, not the text: right-click the style name, choose Modify, then watch the whole document follow.",
+  lab2: "To restart numbering at 1 you must break into a section first and then set that section's page-number format; changing the font or deleting characters does nothing.",
+  lab3: "When a formula breaks as soon as you drag it, nine times out of ten a missing $ is the cause. Press F4 while editing the formula to cycle through the reference modes.",
+  lab4: "A pivot table needs a tidy source table (no merged cells, a single header row), and remember to click Refresh after the data changes.",
+  lab5: "If one slide ignores the master, it was most likely hand-formatted; use Reset to hand it back to the master.",
+  lab6: "Deliberate white space on the slide plus the script in the notes is what keeps the audience's attention on you.",
+  lab7: "To check the redaction really worked, try copying the covered spot: if the original text copies out, you only drew a rectangle over it.",
+  lab8: "Grant rights on the least-privilege principle: collecting opinions only needs Comment, not Edit."
+};
+Object.keys(LAB_HINT_EN).forEach(function (k) {
+  if (window.OFFICE_LAB_BODY_EN[k]) window.OFFICE_LAB_BODY_EN[k].hint = LAB_HINT_EN[k];
+});
+
 })();

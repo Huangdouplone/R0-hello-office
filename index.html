@@ -14,7 +14,7 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;}
 :root{
   --green:#2e9e5b;--blue:#2f7ed8;--amber:#f0a020;--red:#e2553b;--purple:#8a63d2;
-  --ink:#233044;--sub:#6b7785;--bg:#eef2f6;--card:#ffffff;--soft:#f5f8fb;--line:#e3e9ef;
+  --ink:#233044;--sub:#5f6a79;--bg:#eef2f6;--card:#ffffff;--soft:#f5f8fb;--line:#e3e9ef;
   --cell0:#e6ecf2;--prebg:#1b2433;--shadow:0 2px 12px rgba(30,45,70,.06);
   --fg:#233044;--bg2:#e9eff5;
 }
@@ -105,7 +105,7 @@ body.sbCollapsed .sb-toggle{display:flex;}
 /* 区块（对齐 world：14px 圆角 + 细边线 + 16.5px 标题 + 灰色药丸 tag） */
 .section{background:var(--card);border-radius:14px;padding:18px 20px;margin-bottom:14px;border:1px solid var(--line);scroll-margin-top:80px;}
 .section h2{font-size:16.5px;font-weight:800;color:var(--ink);margin-bottom:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.tag{font-size:11.5px;font-weight:600;background:var(--bg2);color:var(--sub);border-radius:999px;padding:3px 10px;}
+.tag{font-size:11.5px;font-weight:600;background:var(--bg2);color:color-mix(in srgb,var(--sub) 52%,var(--ink));border-radius:999px;padding:3px 10px;}
 .sub2{color:var(--sub);font-size:14px;margin-bottom:14px;}
 
 /* 仪表盘 */
@@ -173,6 +173,27 @@ body.sbCollapsed .sb-toggle{display:flex;}
 
 /* 实战 */
 .lab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;}
+/* 实战按章节分组折叠：组标题就是索引，展开后才是原来的卡片网格 */
+.lab-tools{margin:2px 0 10px;}
+.lab-group{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;overflow:hidden;background:var(--card);}
+.lab-ghd{display:flex;align-items:center;gap:8px;width:100%;text-align:left;border:none;background:transparent;
+  cursor:pointer;padding:10px 12px;font-size:14px;color:var(--ink);font-weight:700;font-family:inherit;}
+.lab-ghd:hover{background:var(--soft);}
+.lab-ghd .lg-caret{width:12px;color:var(--sub);font-size:12px;}
+.lab-ghd .lg-count{margin-left:auto;font-size:12px;font-weight:600;color:var(--sub);}
+.lab-group.open .lab-ghd{border-bottom:1px dashed var(--line);}
+.lab-gbody{display:none;padding:12px;}
+.lab-group.open .lab-gbody{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;}
+@media (max-width:640px){.lab-group.open .lab-gbody{grid-template-columns:1fr;}}
+.mk-pager{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:12px;font-size:13px;color:var(--sub);}
+.pg-btns{display:flex;gap:6px;flex-wrap:wrap;}
+.pg-btn,.pg-opt{min-width:34px;height:32px;padding:0 10px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;cursor:pointer;font-size:13px;font-family:inherit;}
+.pg-btn:hover,.pg-opt:hover{border-color:var(--blue);}
+.pg-btn.on,.pg-opt.on{background:color-mix(in srgb,var(--blue) 58%,#0b1a2e);border-color:transparent;color:#fff;font-weight:600;}
+.pg-ell{padding:0 2px;}
+.pg-jump{width:58px;height:30px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);padding:0 8px;font-size:13px;}
+.pg-info,.pg-size{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+@media (max-width:640px){.mk-pager{gap:8px;font-size:12px;}}
 .lab{border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--card);display:flex;flex-direction:column;}
 .lab h3{font-size:15px;color:var(--ink);margin-bottom:8px;}
 .lab .req{font-size:12px;color:var(--sub);margin-bottom:8px;}
@@ -379,7 +400,7 @@ body.sbCollapsed .sb-toggle{display:flex;}
 .term-cats .chip-x{cursor:pointer;font-size:12px;padding:4px 10px;}
 .term-cats .chip-x.on{background:var(--bg2);background:color-mix(in srgb,var(--blue) 16%,var(--card));
   border-color:var(--blue);box-shadow:inset 0 0 0 1.5px var(--blue);color:var(--ink);font-weight:700;}
-.term-cat{display:inline-block;font-size:10.5px;color:var(--purple);background:rgba(138,99,210,.12);border-radius:6px;padding:1px 7px;margin-bottom:6px;}
+.term-cat{display:inline-block;font-size:10.5px;color:color-mix(in srgb,var(--purple) 45%,var(--ink));background:color-mix(in srgb,var(--purple) 14%,var(--card));border-radius:6px;padding:1px 7px;margin-bottom:6px;}
 .term.hide{display:none;}
 .term-empty{display:block;color:var(--sub);font-size:13px;padding:14px 2px;}
 
@@ -590,8 +611,9 @@ body.sbCollapsed .sb-toggle{display:flex;}
   </section>
 
   <section id="labSec" class="section">
-    <h2>💻 <span data-i18n="动手实战">动手实战</span> <span class="tag" data-i18n="复制即可跑 / 改">复制即可跑 / 改</span></h2>
-    <div class="lab-grid" id="labGrid"></div>
+    <h2>💻 <span data-i18n="动手实战">动手实战</span> <span class="tag" id="labTag"></span></h2>
+    <div class="lab-tools"><button class="btn small ghost" id="labToggle" data-act="lab-toggle-all">展开全部实战</button></div>
+    <div id="labGrid"></div>
   </section>
 
   <section id="quizSec" class="section">
@@ -638,12 +660,15 @@ body.sbCollapsed .sb-toggle{display:flex;}
   <div class="set-hint" id="tdHint" style="margin-top:16px"></div>
 </aside>
 
-<script src="office-data.js?v=1"></script>
-<script src="lang-en.js?v=2"></script>
+<script src="office-data.js?v=2"></script>
+<script src="lang-en.js?v=3"></script>
 <script src="office-extra-data.js?v=1"></script>
-<script src="office-deepen-a.js?v=1"></script>
-<script src="office-deepen-b.js?v=1"></script>
+<script src="office-deepen-a.js?v=2"></script>
+<script src="office-deepen-b.js?v=2"></script>
+<script src="office-deepen-c.js?v=2"></script>
+<script src="office-deepen-d.js?v=2"></script>
 <script src="office-expand.js?v=1"></script>
+<script src="office-quiz-en.js?v=1"></script>
 <script>
 /*
  * 制作者 / Creator:    Bilibili 黄豆666 (huangdouplone)
@@ -663,7 +688,7 @@ CUR.forEach(function (s) { (s.lessons || []).forEach(function (l) { LESSON_MAP[l
 var TOTAL_LESSONS = CUR.reduce(function (a, s) { return a + (s.lessons ? s.lessons.length : 0); }, 0);
 
 function defaultData() {
-  return { settings: { lang: "zh", theme: "system", name: "学习者", route: "ms" }, completed: {}, xp: 0, coins: 0,
+  return { settings: { lang: "", theme: "system", name: "学习者", route: "ms" }, completed: {}, xp: 0, coins: 0,
     activeStyle: "default", goal: 3, quizBest: {} };
 }
 var SAVE_KEY = "r0_hello_office_v1";
@@ -718,7 +743,10 @@ function renderRouteUI() {
 }
 
 /* ===================== i18n ===================== */
-var LANG = (data.settings && data.settings.lang) || "zh";
+/* 默认语言跟随系统：浏览器语言不是 zh* 就默认英文；用户手动切换过则以存储值为准。
+   defaultData 里 lang 故意留空，就是为了区分「没选过」和「选了中文」。 */
+function sysLocale(){ var l = String(navigator.language || (navigator.userLanguage || "")).toLowerCase(); return l.indexOf("zh") === 0 ? "zh" : "en"; }
+var LANG = (data.settings && data.settings.lang) || sysLocale();
 var I18N_EN = {
   "R0：从0开始的Office": "R0:hello office",
   "🗂️ R0:hello agent · 从零开始的大模型": "🗂️ R0:hello agent · Large Models from Zero",
@@ -767,6 +795,7 @@ var I18N_EN = {
   "易错": "Pitfalls",
   "思考": "Think",
   "示例代码": "Example code",
+  "展开全部实战": "Expand all labs", "收起全部实战": "Collapse all labs", "综合": "Combined", "个实战": " labs",
   "关系": "Relationship",
   "共 ": "Total ",
   " 章": " stages",
@@ -1016,13 +1045,28 @@ function flipSkin(v, toDark) {
    ① 先按当前昼夜推导出一套「完整」色板（补齐皮肤没定义的 --bg2/--fg 等，防止从基础主题泄漏）；
    ② 若当前极性正是该皮肤的原生极性，再用皮肤自己的值覆盖，保住它的签名观感。
    default（无 vars）返回 null，交回基础主题（:root + [data-theme=dark]）。 */
+function _aaRatio(a, b) { var la = _lum(a), lb = _lum(b); return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05); }
+/* 派生色板的 --sub 在浅底与深底上都容易掉到 WCAG AA 以下（实测 3.2~4.1）。
+   这里只沿明度收紧到 ≥4.5，保留色相与饱和度，所以每个皮肤在昼夜两侧仍然是它自己。 */
+function _enforceAA(pal) {
+  if (!pal || !pal["--sub"]) return pal;
+  var bg = pal["--card"] || pal["--bg"]; if (!bg) return pal;
+  var o = _hsl(_hx(pal["--sub"])); if (!o) return pal;
+  var darker = _lum(bg) > 0.5, n = 0;
+  var bg2 = pal["--bg"] || bg;   /* 底色取最保守的那个：卡片达标但页面底不达标同样会被看见 */
+  while (Math.min(_aaRatio(pal["--sub"], bg), _aaRatio(pal["--sub"], bg2)) < 4.5 && n++ < 18) {
+    o.l = Math.max(0, Math.min(100, o.l + (darker ? -3 : 3)));
+    pal["--sub"] = _hex(o.h, o.s, o.l);
+  }
+  return pal;
+}
 function skinPalette(st, dark) {
   var base = (st && st.vars) || {};
   if (!Object.keys(base).length) return null;
   var nativeLight = _lum(base["--bg"] || "#ffffff") > 0.5;
   var full = flipSkin(base, dark);
   if (nativeLight === (!dark)) { Object.keys(base).forEach(function (k) { full[k] = base[k]; }); }
-  return full;
+  return _enforceAA(full);
 }
 function themeMode() {
   var t = (data.settings && data.settings.theme) || "system";
@@ -1127,6 +1171,16 @@ function cmapLayout() {
   return pos;
 }
 function cmapPillW(label) { return Math.max(58, Math.round(label.length * 6 + 16)); }
+/* 长英文标签折两行：单行会把胶囊撑到画布宽度的四分之一，相邻节点必然相碰（D28）。
+   只对超过 22 字符的标签生效，其余节点的几何完全不动 —— 早先「整环拆圈 + 全部折行」的
+   全局改法实测把相碰从 1 处推到 6 处，所以这次按标签长度局部处理。 */
+function cmapWrap(label) {
+  if (label.length <= 18) return [label];
+  var mid = Math.ceil(label.length / 2), i = label.lastIndexOf(" ", mid + 4);
+  if (i < 6) i = label.indexOf(" ", mid);
+  if (i < 0) return [label];
+  return [label.slice(0, i), label.slice(i + 1)];
+}
 function renderMap() {
   var svg = $("cmapSvg"); if (!svg || !CMAP.nodes.length) return;
   var pos = cmapLayout(), sel = cmapSel, near = {};
@@ -1144,11 +1198,17 @@ function renderMap() {
   });
   CMAP.nodes.forEach(function (n) {
     var p = pos[n.id]; if (!p) return;
-    var label = cmapLabel(n.id), w = cmapPillW(label), h = 26;
+    var label = cmapLabel(n.id), lines = cmapWrap(label), w = cmapPillW(lines[0]);
+    lines.forEach(function (x) { w = Math.max(w, cmapPillW(x)); });
+    var h = lines.length > 1 ? 40 : 26;
     var cls = "nd" + (n.tier === 0 ? " core" : "") + (sel === n.id ? " on" : "") + (sel && !near[n.id] ? " dim" : "");
+    var txt = lines.length > 1
+      ? '<text x="' + p.x.toFixed(1) + '" y="' + (p.y - 7).toFixed(1) + '">' + esc(lines[0]) + "</text>" +
+        '<text x="' + p.x.toFixed(1) + '" y="' + (p.y + 8).toFixed(1) + '">' + esc(lines[1]) + "</text>"
+      : '<text x="' + p.x.toFixed(1) + '" y="' + (p.y + 1).toFixed(1) + '">' + esc(label) + "</text>";
     s += '<g class="' + cls + '" data-act="cmap-pick" data-id="' + esc(n.id) + '">' +
-      '<rect x="' + (p.x - w / 2).toFixed(1) + '" y="' + (p.y - h / 2).toFixed(1) + '" width="' + w + '" height="' + h + '" rx="13"></rect>' +
-      '<text x="' + p.x.toFixed(1) + '" y="' + (p.y + 1).toFixed(1) + '">' + esc(label) + "</text></g>";
+      '<rect x="' + (p.x - w / 2).toFixed(1) + '" y="' + (p.y - h / 2).toFixed(1) + '" width="' + w + '" height="' + h + '" rx="' + (lines.length > 1 ? 10 : 13) + '"></rect>' +
+      txt + "</g>";
   });
   svg.innerHTML = s;
   var note = $("cmapNote");
@@ -1348,16 +1408,61 @@ function renderWorkflow() {
 
 /* ===================== 渲染：实战 ===================== */
 function renderLabs() {
-  $("labGrid").innerHTML = LABS.map(function (x) {
-    var h = '<div class="lab"><h3>' + esc(labEn(x.id, "t") || x.t) + "</h3>";
-    var reqEn = labBodyEn(x.id, "req"); var reqList = reqEn || (x.req || []); h += '<div class="req">' + (LANG === "en" ? "Requires: " : "需要：") + esc(reqList.map(prodEn).join(LANG === "en" ? ", " : "、")) + "</div>";
-    var stEn = labBodyEn(x.id, "starter"); h += "<pre>" + crAttr() + esc(stEn || x.starter) + "</pre>";
-    var hintEn = labBodyEn(x.id, "hint"); h += '<div class="hint" id="hint-' + x.id + '">' + esc(hintEn || x.hint) + "</div>";
-    h += '<div class="acts"><button class="btn small green" data-act="copy-lab" data-id="' + x.id + '">' + t("复制代码") + "</button>";
-    h += '<button class="btn small ghost" data-act="toggle-hint" data-id="' + x.id + '">' + t("看提示") + "</button></div>";
-    h += "</div>";
-    return h;
-  }).join("");
+  /* 实战卡一多，整块就变成一堵墙：按「实际对应章节」分组折叠，默认全部收起，
+     组标题给出章节名与题数，展开状态存进 data.labOpen（与图例 / 成就分组同一套交互语言）。 */
+  var groups = {}, order = [];
+  LABS.forEach(function (x) {
+    var sid = x.stage || "_other";
+    if (!groups[sid]) { groups[sid] = []; order.push(sid); }
+    groups[sid].push(x);
+  });
+  var en = LANG === "en";
+  var open = data.labOpen || {};
+  var html = "";
+  order.forEach(function (sid) {
+    var st = CUR.filter(function (s) { return s.id === sid; })[0];
+    var name = st ? tn(st) : t("综合");
+    var ic = st ? st.icon : "💻";
+    var isOpen = !!open[sid];
+    html += '<div class="lab-group' + (isOpen ? " open" : "") + '">' +
+      '<button class="lab-ghd" data-act="lab-group" data-id="' + sid + '" aria-expanded="' + (isOpen ? "true" : "false") + '">' +
+      '<span class="lg-caret">' + (isOpen ? "▾" : "▸") + "</span>" +
+      '<span class="lg-ic">' + esc(ic) + "</span>" +
+      '<span class="lg-name">' + esc(name) + "</span>" +
+      '<span class="lg-count">' + groups[sid].length + (en ? (groups[sid].length > 1 ? " labs" : " lab") : " 个实战") + "</span>" +
+      "</button>";
+    html += '<div class="lab-gbody">' + groups[sid].map(labCardHtml).join("") + "</div></div>";
+  });
+  $("labGrid").innerHTML = html;
+  var tg = $("labToggle");
+  if (tg) {
+    var allOpen = order.length > 0 && order.every(function (s) { return !!open[s]; });
+    tg.textContent = allOpen ? t("收起全部实战") : t("展开全部实战");
+    tg.dataset.id = allOpen ? "collapse" : "expand";
+  }
+  var tag = $("labTag");
+  if (tag) tag.textContent = en
+    ? (LABS.length + " labs · " + order.length + " chapter groups · collapsed")
+    : (LABS.length + " 题 · " + order.length + " 个章节组 · 默认收起");
+}
+function labCardHtml(x) {
+  var h = '<div class="lab"><h3>' + esc(labEn(x.id, "t") || x.t) + "</h3>";
+  var reqEn = labBodyEn(x.id, "req"); var reqList = reqEn || (x.req || []); h += '<div class="req">' + (LANG === "en" ? "Requires: " : "需要：") + esc(reqList.map(prodEn).join(LANG === "en" ? ", " : "、")) + "</div>";
+  var stEn = labBodyEn(x.id, "starter"); h += "<pre>" + crAttr() + esc(stEn || x.starter) + "</pre>";
+  var hintEn = labBodyEn(x.id, "hint"); h += '<div class="hint" id="hint-' + x.id + '">' + esc(hintEn || x.hint) + "</div>";
+  h += '<div class="acts"><button class="btn small green" data-act="copy-lab" data-id="' + x.id + '">' + t("复制代码") + "</button>";
+  h += '<button class="btn small ghost" data-act="toggle-hint" data-id="' + x.id + '">' + t("看提示") + "</button></div>";
+  return h + "</div>";
+}
+function toggleLabGroup(sid) {
+  data.labOpen = data.labOpen || {};
+  data.labOpen[sid] = !data.labOpen[sid];
+  saveData(); renderLabs();
+}
+function toggleAllLabs(mode) {
+  data.labOpen = {};
+  if (mode !== "collapse") LABS.forEach(function (x) { data.labOpen[x.stage || "_other"] = true; });
+  saveData(); renderLabs();
 }
 
 /* ===================== 渲染：测评 ===================== */
@@ -1394,6 +1499,18 @@ function buildQuiz(scope) {
     return { q: q, perm: perm, opts: perm.map(function (k) { return o[k]; }), ca: perm.indexOf(q.a) };
   });
 }
+/* 测评英文：优先读题内 *_en 字段，其次查 lang-en.js 里按题干索引的 OFFICE_QUIZ_EN 侧表。
+   两处都没有才退回中文——基础 80 题目前只有中文，靠这张侧表逐批补齐，不必改题号。 */
+function quizEn(q) {
+  if (LANG !== "en") return null;
+  var side = (window.OFFICE_QUIZ_EN || {})[q.q] || null;
+  var qt = q.q_en || (side && side.q);
+  var ot = q.o_en || (side && side.o);
+  var at = q.a_en || (side && side.a);
+  var wt = q.why_en || q.whyEn || (side && side.why);
+  if (!qt && !ot && !wt) return null;
+  return { q: qt || q.q, o: ot || null, a: at || null, why: wt || null };
+}
 function quizScopeName() {
   if (quizScope === "all") return t("全站测评");
   var s = CUR.find(function (x) { return x.id === quizScope; });
@@ -1408,7 +1525,7 @@ function startQuiz(scope) {
   var h = '<div class="quiz-scope">📝 ' + esc(quizScopeName()) + " · " + QUIZ.length + (LANG === "en" ? " questions · options shuffled" : " 题 · 选项已随机打乱") + "</div>";
   QUIZ.forEach(function (it, i) {
     var q = it.q;
-    var qEn = (LANG === "en" && window.OFFICE_QUIZ_EN && window.OFFICE_QUIZ_EN[q.q]) || null;
+    var qEn = quizEn(q);
     var qText = qEn ? qEn.q : q.q;
     h += '<div class="quiz-q" id="qq-' + i + '"><div class="qt">' + (i + 1) + ". " + esc(qText) + "</div>";
     if (q.type === "fill") {
@@ -1417,6 +1534,7 @@ function startQuiz(scope) {
       /* 显示顺序 = it.opts（已乱序）；英文选项按同一个 perm 重排，保证中英顺序一致 */
       var disp = it.opts;
       if (qEn && qEn.o && qEn.o.length === (q.o || []).length && it.perm) disp = it.perm.map(function (k) { return qEn.o[k]; });
+      it.disp = disp;   /* 判分与解析要用同一份显示文案，否则英文态会掉回中文选项 */
       disp.forEach(function (opt, j) {
         h += '<button class="opt" data-act="quiz-pick" data-q="' + i + '" data-o="' + j + '" id="qo-' + i + "-" + j + '">' + esc(opt) + "</button>";
       });
@@ -1441,9 +1559,13 @@ function submitQuiz() {
   var right = 0;
   QUIZ.forEach(function (it, i) {
     var q = it.q, ok = false, userVal = "";
+    var qEn2 = quizEn(q);
     if (q.type === "fill") {
       userVal = ($("qf-" + i) ? $("qf-" + i).value : "") || "";
-      ok = normAns(userVal) === normAns(q.ans != null ? q.ans : q.a);   // 填空答案在 a（兼容 ans）
+      /* 填空判分要同时接受中文答案与英文答案：英文态用户不可能猜中文关键词，
+         只比 q.ans 等于必然判错（与 world 的 fillAccepted / agent 的中英任一算对同口径）*/
+      var want = [q.ans != null ? q.ans : q.a, qEn2 && qEn2.a].filter(function (x) { return x != null; });
+      ok = want.some(function (x) { return normAns(userVal) === normAns(x); });
     } else {
       var pick = quizSel[i];
       ok = (pick === it.ca);                                            // 与乱序后的正确位置比较
@@ -1453,15 +1575,15 @@ function submitQuiz() {
         else if (k === pick) el.classList.add("wrong");
       });
     }
-    var userTxt = userVal || (it.opts && quizSel[i] != null ? it.opts[quizSel[i]] : "");
-    var rightTxt = q.type === "fill" ? (q.ans != null ? q.ans : q.a) : (it.opts ? it.opts[it.ca] : "");
+    var userTxt = userVal || (it.disp && quizSel[i] != null ? it.disp[quizSel[i]] : (it.opts && quizSel[i] != null ? it.opts[quizSel[i]] : ""));
+    var rightTxt = q.type === "fill" ? ((qEn2 && qEn2.a) || (q.ans != null ? q.ans : q.a)) : (it.disp ? it.disp[it.ca] : it.opts[it.ca]);
     if (ok) right++;
     else addMistake(q.q, userTxt, rightTxt);
     var w = $("qw-" + i);
     if (w) {
       w.style.display = "block";
       w.innerHTML = (ok ? "✅ " + t("正确") : "❌ " + t("错误") + " · " + t("你的答案") + (LANG === "en" ? ": " : "：") + esc(userTxt)) +
-        "<br>" + (LANG === "en" ? "Explanation: " : "解析：") + esc(q.whyEn || q.why);
+        "<br>" + (LANG === "en" ? "Explanation: " : "解析：") + esc((qEn2 && qEn2.why) || q.whyEn || q.why);
     }
   });
   quizDone = true;
@@ -1476,8 +1598,10 @@ function submitQuiz() {
 }
 
 /* ===================== 课节模态 ===================== */
+var modalLessonId = null;   /* 弹窗开着时切语言要原地重渲染，所以得记住当前是哪一课 */
 function openLesson(id) {
   var m = LESSON_MAP[id]; if (!m) return;
+  modalLessonId = id;
   var s = m.stage, l = m.lesson, comp = !!data.completed[id];
   data.last = { lesson: id, stage: s.id, ts: Date.now() };   // 学习记忆：记录断点
   saveData(); renderResume();
@@ -1492,14 +1616,17 @@ function openLesson(id) {
   h += "</div>";
   /* 操作路径：按当前路线（MS Office / WPS）显示对应菜单路径，并提示另一条路线 */
   var rk = curRoute(), pm = routeMeta();
-  var pCur = l.path ? (l.path[rk] || l.path.ms || "") : "";
-  var pOther = l.path ? (l.path[rk === "ms" ? "wps" : "ms"] || "") : "";
+  /* 双路线操作路径：英文模式优先用 path_en（层里没给就仍显示中文路径，不硬翻菜单名） */
+  var pset = (LANG === "en" && l.path_en && (l.path_en.ms || l.path_en.wps)) ? l.path_en : (l.path || null);
+  var pCur = pset ? (pset[rk] || pset.ms || "") : "";
+  var pOther = pset ? (pset[rk === "ms" ? "wps" : "ms"] || "") : "";
   if (pCur) {
     h += '<div class="m-block path-block"><div class="lab">' + t("操作路径") + " · " + esc(pm.icon + " " + pm.name) + '</div><pre>' + esc(pCur) + "</pre>";
     if (pOther && pOther !== pCur) h += '<div class="path-alt">' + t("另一条路线") + (LANG === "en" ? " (" + esc(routeMeta(rk === "ms" ? "wps" : "ms").short) + "): " : "（" + esc(routeMeta(rk === "ms" ? "wps" : "ms").short) + "）：") + esc(pOther) + "</div>";
     h += "</div>";
   }
-  var codeEn = lbEn(l.id, "code"); if (codeEn || l.code) h += '<div class="m-block"><div class="lab">' + t("示例代码") + '</div><pre>' + crAttr() + esc(codeEn || l.code) + "</pre></div>";
+  var codeEn = lbEn(l.id, "code") || (LANG === "en" && l.code_en ? l.code_en : null);
+  if (codeEn || l.code) h += '<div class="m-block"><div class="lab">' + t("示例代码") + '</div><pre>' + crAttr() + esc(codeEn || l.code) + "</pre></div>";
   var pitEn = lbEn(l.id, "pit") || (LANG === "en" ? l.pit_en : null); if (pitEn || l.pit) h += '<div class="m-block"><div class="lab">' + t("易错") + "</div><p>" + esc(pitEn || l.pit) + "</p></div>";
   var exEn = lbExEn(l.id);
   var exQ = (exEn && exEn.q) || (LANG === "en" && l.ex && l.ex.q_en) || (l.ex && l.ex.q);
@@ -1523,6 +1650,7 @@ function toggleComplete(id) {
     toast((LANG === "en" ? "Lesson complete! +5 XP +2 coins" : "课节完成！+5 XP +2 星币"));
   }
   saveData();
+  modalLessonId = null;
   $("modalMask").classList.remove("show");
   renderChapters(); renderDash(); renderSidebar(); renderTasks(); renderReview(); renderHeatmap(); renderAchievements(); renderReport();
 }
@@ -1653,6 +1781,9 @@ function applyLang() {
   var gh = $("ghBtn"); if (gh) gh.title = t("打开 GitHub 仓库");
   renderLocale(); renderRouteUI();
   renderAll();
+  /* 已打开的弹窗不会随 renderAll 重建，切语言后会留下旧语言的正文（与 agi / world 同一修法） */
+  var mk = $("modalMask");
+  if (mk && mk.classList.contains("show") && modalLessonId) openLesson(modalLessonId);
 }
 function renderLocale() {
   var box = $("localeBox"); if (!box) return;
@@ -1679,24 +1810,98 @@ function renderMiniProg() {
 /* ===================== 课程深化层（office-deepen-*.js） =====================
    把每节从「3 要点」深化到「6~7 要点」：id 与标题不变（进度零迁移），
    只替换 summary / code / pit / ex，并补上对应的英文（条数与中文一致）。
-   课节的 path.ms / path.wps（双路线操作路径）必须原样保留。 */
-[typeof DEEPEN_OFFICE_A !== "undefined" ? DEEPEN_OFFICE_A : null,
- typeof DEEPEN_OFFICE_B !== "undefined" ? DEEPEN_OFFICE_B : null].forEach(function (D) {
-  if (!D) return;
+   支持六件事（R5 起）：① 覆盖既有课节；② order 里出现、但本章还没有的 id → 追加新课节；
+   ③ newStages → 插入全新章节；④ path / path_en → 修正或提供双路线操作路径；
+   ⑤ terms → 补词条并同步英文表；⑥ mapAdd → 概念地图节点与边（原地 push）。 */
+function ofsMergeLesson(prev, nw, lid) {
+  var o = {
+    id: lid,
+    title: nw.title != null ? nw.title : (prev && prev.title),
+    summary: nw.summary || (prev && prev.summary),
+    code: nw.code != null ? nw.code : (prev && prev.code),
+    pit: nw.pit != null ? nw.pit : (prev && prev.pit),
+    ex: nw.ex || (prev && prev.ex)
+  };
+  /* 双路线操作路径：层里给了就用层的（O3 要修的就是这个），没给沿用原值 */
+  o.path = nw.path || (prev && prev.path);
+  o.path_en = nw.path_en || (prev && prev.path_en);
+  ["title_en", "summary_en", "pit_en", "code_en"].forEach(function (f) {
+    var v = nw[f] != null ? nw[f] : (prev && prev[f]);
+    if (v != null) o[f] = v;
+  });
+  return o;
+}
+var OFS_LAYERS = [
+  typeof DEEPEN_OFFICE_A !== "undefined" ? DEEPEN_OFFICE_A : null,
+  typeof DEEPEN_OFFICE_B !== "undefined" ? DEEPEN_OFFICE_B : null,
+  typeof DEEPEN_OFFICE_C !== "undefined" ? DEEPEN_OFFICE_C : null,
+  typeof DEEPEN_OFFICE_D !== "undefined" ? DEEPEN_OFFICE_D : null
+].filter(Boolean);
+OFS_LAYERS.forEach(function (D) {
+  /* ③ 新增章节：按 insertAfter 插进 CURRICULUM（锚点找不到就追加到末尾） */
+  (D.newStages || []).forEach(function (ns) {
+    if (!ns || !ns.id) return;
+    if ((window.OFFICE_CURRICULUM || []).some(function (s) { return s.id === ns.id; })) return;
+    var stage = { id: ns.id, icon: ns.icon || "📘", name: ns.name, name_en: ns.name_en,
+      desc: ns.desc, desc_en: ns.desc_en, quiz: [] };
+    var at = ns.insertAfter ? window.OFFICE_CURRICULUM.findIndex(function (s) { return s.id === ns.insertAfter; }) : -1;
+    if (at >= 0) window.OFFICE_CURRICULUM.splice(at + 1, 0, stage);
+    else window.OFFICE_CURRICULUM.push(stage);
+  });
   (D.stages || []).forEach(function (sid) {
     var st = (window.OFFICE_CURRICULUM || []).filter(function (x) { return x.id === sid; })[0];
     if (!st) return;
+    /* ① 覆盖既有课节 */
     st.lessons = (st.lessons || []).map(function (l) {
       var nw = D.lessons[l.id];
-      if (!nw) return l;
-      var o = { id: l.id, title: nw.title, summary: nw.summary, code: nw.code, pit: nw.pit, ex: nw.ex };
-      if (l.path) o.path = l.path;
-      o.title_en = nw.title_en || l.title_en;
-      o.summary_en = nw.summary_en || l.summary_en;
-      o.pit_en = nw.pit_en || l.pit_en;
-      return o;
+      return nw ? ofsMergeLesson(l, nw, l.id) : l;
     });
+    /* ② order 中出现、但本章还没有的 id → 作为新课节按 order 顺序补齐 */
+    var ord = D.order && D.order[sid];
+    if (ord) {
+      var have = {};
+      st.lessons.forEach(function (l) { have[l.id] = l; });
+      var built = [];
+      ord.forEach(function (lid) {
+        if (have[lid]) { built.push(have[lid]); return; }
+        var nw = D.lessons[lid];
+        if (nw) { var o = ofsMergeLesson(null, nw, lid); if (o.summary && o.summary_en && o.summary.length !== o.summary_en.length) o.summary_en = o.summary; built.push(o); }
+      });
+      /* order 没列到的既有课节保留在末尾，避免层里漏写就把课节弄丢 */
+      st.lessons.forEach(function (l) { if (ord.indexOf(l.id) < 0) built.push(l); });
+      st.lessons = built;
+    }
+    /* 新章的测验题 */
+    if (D.quizAdd) {
+      var qa = D.quizAdd[sid] || (D.quizAdd.length && sid === D.stages[0] ? D.quizAdd : null);
+      if (qa && qa.length) st.quiz = (st.quiz || []).concat(qa);
+    }
   });
+  /* ⑤ 新章的词条：除了进词库，还要同步登记英文表 —— lang-en.js 早已按老词表建好
+     OFFICE_TERM_EN / OFFICE_TERM_DETAIL_EN，新词不补登记的话，英文模式下词条名与明细都会退回中文。 */
+  if (D.terms && D.terms.length && window.OFFICE_TERMS) {
+    D.terms.forEach(function (t) {
+      if (!t || !t.term) return;
+      if (window.OFFICE_TERMS.some(function (x) { return x.term === t.term; })) return;  /* 已有词条不动，避免层里的改写字静默覆盖词库 */
+      window.OFFICE_TERMS.push(t);
+      if (window.OFFICE_TERM_EN) window.OFFICE_TERM_EN[t.term] = { term: t.term_en, short: t.short_en, vs: t.vs_en };
+      if (t.detail_en && t.detail_en.length && window.OFFICE_TERM_DETAIL_EN) window.OFFICE_TERM_DETAIL_EN[t.term] = t.detail_en;
+    });
+  }
+  /* ⑥ 新章的概念地图节点与边：CMAP / TERMS 都在合并前就按引用取走了，
+     所以这里必须原地 push（重新赋值会让渲染层拿着旧数组，新章在图上永远不出现）。 */
+  if (D.mapAdd && window.OFFICE_CONCEPT_MAP) {
+    var CN = window.OFFICE_CONCEPT_MAP.nodes, CE = window.OFFICE_CONCEPT_MAP.edges;
+    (D.mapAdd.nodes || []).forEach(function (n) {
+      if (!n || !n.id) return;
+      if (!CN.some(function (x) { return x.id === n.id; })) CN.push(n);
+    });
+    (D.mapAdd.edges || []).forEach(function (e) {
+      if (!e || !e.a || !e.b) return;
+      if (!CN.some(function (x) { return x.id === e.a; }) || !CN.some(function (x) { return x.id === e.b; })) return;
+      if (!CE.some(function (x) { return x.a === e.a && x.b === e.b; })) CE.push(e);
+    });
+  }
 });
 
 /* ★ LESSON_MAP 在 662 行就快照了课节对象，而上面的深化合并会**替换** st.lessons 里的元素，
@@ -1705,6 +1910,17 @@ function renderMiniProg() {
 LESSON_MAP = {};
 CUR.forEach(function (s) { (s.lessons || []).forEach(function (l) { LESSON_MAP[l.id] = { stage: s, lesson: l }; }); });
 TOTAL_LESSONS = CUR.reduce(function (a, s) { return a + (s.lessons ? s.lessons.length : 0); }, 0);
+
+/* ★ 同一类快照问题还出现在英文侧表上：lang-en.js 在合并**之前**就把章节名 / 课节标题
+   按 id 写进了 OFFICE_STAGE_EN / OFFICE_LESSON_EN。于是 ① 新增章节（c9）在英文态取不到条目，
+   tn() 直接退回中文 name；② 深化层改写过 title_en 的课节仍显示基础数据里的旧标题。
+   合并结束后按 lang-en.js 的同一规则重建两张表。 */
+window.OFFICE_STAGE_EN = {};
+window.OFFICE_LESSON_EN = {};
+CUR.forEach(function (s) {
+  window.OFFICE_STAGE_EN[s.id] = { name: s.name_en || s.name, desc: s.desc_en || s.desc };
+  (s.lessons || []).forEach(function (l) { window.OFFICE_LESSON_EN[l.id] = { title: l.title_en || l.title }; });
+});
 
 /* ===================== 深化配套扩展：成就 =====================
    ACHIEVEMENTS 声明在页面内联脚本中，外部脚本取不到，因此在这里合并。
@@ -1764,7 +1980,7 @@ document.addEventListener("click", function (e) {
   else if (act === "mp") { var st2 = $("stage-" + id); if (st2) { st2.classList.add("open"); st2.scrollIntoView({ behavior: "smooth", block: "start" }); } }
   else if (act === "toggle-stage") { var st = $("stage-" + id); if (st) { st.classList.toggle("open"); renderSidebar(); } }
   else if (act === "open-lesson") { openLesson(id); }
-  else if (act === "close-modal") { $("modalMask").classList.remove("show"); }
+  else if (act === "close-modal") { modalLessonId = null; $("modalMask").classList.remove("show"); }
   else if (act === "toggle-complete") { toggleComplete(id); }
   else if (act === "checkin") { checkin(); }
   else if (act === "review-done") { reviewDone(id); }
@@ -1785,6 +2001,15 @@ document.addEventListener("click", function (e) {
   else if (act === "quiz-pick") { quizPick(parseInt(el.dataset.q, 10), parseInt(el.dataset.o, 10)); }
   else if (act === "quiz-submit") { submitQuiz(); }
   else if (act === "copy-lab") { var lab = LABS.find(function (x) { return x.id === id; }); if (lab) copyText(crComment() + lab.starter); }
+  else if (act === "lab-group") { toggleLabGroup(id); }
+  else if (act === "lab-toggle-all") { toggleAllLabs(id); }
+  else if (act === "mk-page") { data.mkPage = parseInt(id, 10) || 1; saveData(); renderMistakes(); }
+  else if (act === "mk-prev") { data.mkPage = Math.max(1, (data.mkPage || 1) - 1); saveData(); renderMistakes(); }
+  else if (act === "mk-next") { data.mkPage = (data.mkPage || 1) + 1; saveData(); renderMistakes(); }
+  else if (act === "mk-size") {
+    var n = parseInt(id, 10) || 5, top = ((data.mkPage || 1) - 1) * (data.mkSize || 5);
+    data.mkSize = n; data.mkPage = Math.floor(top / n) + 1; saveData(); renderMistakes();
+  }
   else if (act === "toggle-hint") { var hh = $("hint-" + id); if (hh) hh.style.display = hh.style.display === "block" ? "none" : "block"; }
   else if (act === "shop") { openShop(); }
   else if (act === "close-shop") { closeShop(); }
@@ -1793,7 +2018,10 @@ document.addEventListener("click", function (e) {
   else if (act === "import") { $("importFile").click(); }
   else if (act === "reset") { resetData(); }
 });
-$("modalMask").addEventListener("click", function (e) { if (e.target === this) this.classList.remove("show"); });
+$("modalMask").addEventListener("click", function (e) { if (e.target === this) { modalLessonId = null; this.classList.remove("show"); } });
+/* 错题本翻页的「跳至 N 页」：输入框走 change 与回车两条路，不额外加按钮 */
+document.addEventListener("change", function (e) { var el = e.target; if (el && el.classList && el.classList.contains("pg-jump")) mkJump(el.value); });
+document.addEventListener("keydown", function (e) { if (e.key === "Enter" && e.target && e.target.classList && e.target.classList.contains("pg-jump")) mkJump(e.target.value); });
 $("sbToggle").addEventListener("click", openSidebar);
 $("sbOverlay").addEventListener("click", closeSidebar);
 $("drawerOverlay").addEventListener("click", closeShop);
@@ -2032,6 +2260,48 @@ function addMistake(q, userAns, correctAns) {
   else data.mistakes.push({ q: q, user: userAns, correct: correctAns, date: todayStr() });
   saveData(); renderMistakes();
 }
+/* 错题本翻页：错题会一直累积，平铺会把板块越拉越长。
+   默认每页 5 题，可选 5 / 10 / 15；页码与每页题数都进存档，刷新后不丢。 */
+function mkPaged(arr) {
+  var size = data.mkSize || 5;
+  var pages = Math.max(1, Math.ceil(arr.length / size));
+  var page = Math.min(Math.max(1, data.mkPage || 1), pages);
+  data.mkPage = page;
+  return { page: page, pages: pages, size: size, total: arr.length, items: arr.slice((page - 1) * size, page * size) };
+}
+function mkPagerHtml(st) {
+  if (!st.total) return "";
+  var en = LANG === "en";
+  var btn = function (label, act, id, on) {
+    return '<button class="pg-btn' + (on ? " on" : "") + '" data-act="' + act + '"' + (id ? ' data-id="' + id + '"' : "") + ">" + label + "</button>";
+  };
+  var nums = [];
+  if (st.pages <= 7) { for (var i = 1; i <= st.pages; i++) nums.push(i); }
+  else {
+    nums.push(1);
+    if (st.page > 3) nums.push(0);
+    for (var j = Math.max(2, st.page - 1); j <= Math.min(st.pages - 1, st.page + 1); j++) nums.push(j);
+    if (st.page < st.pages - 2) nums.push(0);
+    nums.push(st.pages);
+  }
+  var numsHtml = nums.map(function (n) {
+    return n === 0 ? '<span class="pg-ell">…</span>' : btn(String(n), "mk-page", String(n), n === st.page);
+  }).join("");
+  var jump = '<input class="pg-jump" type="number" min="1" max="' + st.pages + '" value="' + st.page + '">';
+  var info = en
+    ? '<span class="pg-info">' + st.pages + " pages / " + st.total + " items · jump to " + jump + "</span>"
+    : '<span class="pg-info">共 ' + st.pages + " 页 / " + st.total + " 个 · 跳至 " + jump + " 页</span>";
+  var size = '<span class="pg-size">' + (en ? "Per page " : "每页 ") +
+    [5, 10, 15].map(function (n) {
+      return '<button class="pg-opt' + (n === st.size ? " on" : "") + '" data-act="mk-size" data-id="' + n + '">' + n + "</button>";
+    }).join("") + (en ? "" : " 题") + "</span>";
+  return '<div class="mk-pager">' +
+    (st.page > 1 ? btn(en ? "Prev" : "上一页", "mk-prev", "", false) : "") +
+    numsHtml +
+    (st.page < st.pages ? btn(en ? "Next" : "下一页", "mk-next", "", false) : "") +
+    info + size + "</div>";
+}
+function mkJump(v) { var n = parseInt(v, 10); if (!n) return; data.mkPage = n; saveData(); renderMistakes(); }
 function renderMistakes() {
   var ms = data.mistakes || [];
   $("mistakeTag").textContent = ms.length + " " + t("题");
@@ -2039,15 +2309,15 @@ function renderMistakes() {
     $("mistakeList").innerHTML = '<div class="empty-note">' + t("暂无错题，测评答错的题目会自动收录") + '</div>';
     return;
   }
+  var st = mkPaged(ms.slice().reverse());
   var h = "";
-  ms.slice().reverse().forEach(function(m){
+  st.items.forEach(function (m) {
     h += '<div class="review-item"><div class="q">' + esc(m.q) + '</div>' +
       '<div class="a">' + t("正确答案") + ": " + esc(m.correct) + '</div>' +
       '<div class="rm">' + m.date + '</div></div>';
   });
-  $("mistakeList").innerHTML = h;
+  $("mistakeList").innerHTML = h + mkPagerHtml(st);
 }
-
 /* ===================== 热力图 ===================== */
 function renderHeatmap() {
   var days = [];
