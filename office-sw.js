@@ -4,12 +4,12 @@
  * 隶属 / Series:        隶属于拾色造梦企划 EDU 系列
  * 通过 http(s) 托管本目录时自动生效；file:// 直接打开时浏览器会拒绝注册，属正常现象。
  */
-const CACHE = "r0-hello-office-v29";
+const CACHE = "r0-hello-office-v32";
 /* ASSETS 必须与 index.html 里 <script src> 的 URL 逐字符一致（含 ?v=N 查询串）：
    缓存以「完整请求 URL」为键，裸文件名匹配不上带查询串的请求，会导致离线时取不到这些资源。 */
 const ASSETS = [
   "./", "index.html",
-  "office-data.js?v=3", "lang-en.js?v=4", "office-extra-data.js?v=1", "office-deepen-a.js?v=2", "office-deepen-b.js?v=2", "office-deepen-c.js?v=2", "office-deepen-d.js?v=2", "office-expand.js?v=1", "office-quiz-en.js?v=1", "ped-ext.js?v=1",
+  "office-data.js?v=3", "lang-en.js?v=4", "office-extra-data.js?v=1", "office-deepen-a.js?v=2", "office-deepen-b.js?v=2", "office-deepen-c.js?v=4", "office-deepen-d.js?v=2", "office-expand.js?v=2", "office-quiz-en.js?v=1", "ped-ext.js?v=1",
   "office-sw.js", "README.md", "LICENSE.md"
 ];
 self.addEventListener("install", function (e) {

@@ -82,7 +82,29 @@ const OFFICE_EXPAND = {
       { q: "备份只放在云端一份，就已经足够安全。", o: ["正确", "错误"], a: 1,
         why: "单点不是备份；应遵循多点原则：云端一份、本地一份。", type: "judge" },
       { q: "把重复出现的格式与结构固化为默认行为，依靠的是___。", o: [], a: "模板",
-        why: "模板把统一格式从「靠人自觉」变成「默认就正确」，降低对个人经验的依赖。", type: "fill" }
+        why: "模板把统一格式从「靠人自觉」变成「默认就正确」，降低对个人经验的依赖。", type: "fill" },
+      /* —— 以下 3 题针对深化层 c 新增的 c8l5（邮件与会议纪要）/ c8l6（综合交付全链路）—— */
+      { q: "给同事发一封需要对方在周五前确认报价口径的邮件，最合适的主题行是？",
+        o: ["你好", "报价", "【需决策】A 项目报价口径确认 · 周五前回复", "紧急！！！请尽快查看"], a: 2,
+        why: "主题行要让人不打开就知道要不要动手：动词开头（需决策）、带上事项、写清截止日。",
+        q_en: "A colleague must confirm a pricing basis by Friday. Which subject line works best?",
+        o_en: ["Hello", "Quote", "[Decision needed] Project A pricing basis - reply by Friday", "URGENT!!! Please read now"],
+        why_en: "The subject must tell people whether to act without opening the mail: a verb-first prefix, the item, and the deadline.",
+        type: "choice" },
+      { q: "一份合格的会议纪要应当包含哪三张表？",
+        o: ["发言记录 / 签到表 / 合影", "议程原文 / PPT 截图 / 录音链接", "已定结论 / 行动项（人·事·期限）/ 待决事项", "参会名单 / 茶歇安排 / 下次会议时间"], a: 2,
+        why: "纪要不是发言记录，而是结论、行动项与待决事项三张表——只有写下来的结论才能被追溯。",
+        q_en: "Which three tables should proper meeting minutes contain?",
+        o_en: ["Transcript / sign-in sheet / group photo", "Original agenda / PPT screenshots / recording link", "Decisions made / action items (owner, task, deadline) / open questions", "Attendee list / break schedule / next meeting time"],
+        why_en: "Minutes are decisions, action items and open questions - not a transcript; only written decisions can be traced.",
+        type: "choice" },
+      { q: "把 Excel 图表用「粘贴链接」放进 PPT 后，源数据更新时图表会跟着变。",
+        o: ["正确", "错误"], a: 0,
+        why: "链接保持对源文件的引用，更新后右键「更新链接」即可同步；截图则永远不动，会形成两套互相矛盾的数字。",
+        q_en: "After pasting an Excel chart into PPT with Paste Link, the chart follows when the source data changes.",
+        o_en: ["True", "False"],
+        why_en: "A link keeps the reference to the source; run Update Link after changes. A screenshot never moves and breeds two conflicting versions of the numbers.",
+        type: "judge" }
     ]
   },
 

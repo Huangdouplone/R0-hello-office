@@ -6,7 +6,7 @@
  *
  * 这一层做三件事（机制见 index.html 的 ofsMergeLesson / OFS_LAYERS）：
  *   O1  c8「办公协作与效率」4 节 → 6 节：补邮件与会议纪要、补一份跨软件综合交付
- *   O2  newStages 新增 c9「AI 助手与办公提效」3 节 + 4 道测评题（全站此前 0 处 AI 内容）
+ *   O2  newStages 新增 c9「AI 助手与办公提效」5 节（c9l1–c9l5）+ 9 道测评题（全站此前 0 处 AI 内容）
  *   O3  修 D5 遗留的双路线操作路径：c3l1 / c3l2 / c4l1 / c7l2 此前 ms 与 wps
  *       两条路径字节级相同或只差一个字，等于没有双路线；同时补 path_en。
  * 规格同深化层①②：每节 6~7 个要点，中英条数一致；不写死版本号与付费断言。
@@ -450,6 +450,37 @@ const DEEPEN_OFFICE_C = {
         o_en: ["True", "False"],
         why_en: "All three are required: a template alone leaves people unsure what to feed it, a sample alone cannot reproduce the instruction, and without a checklist quality is left to luck.",
         type: "judge"
+      },
+      /* —— 补批 3 题（F5，池 6→9 对齐「每章 ≥9」）：覆盖 c9l2 上下文窗口 / c9l3 幻觉判据 / c9l5 口径入模板 —— */
+      {
+        q: "长材料一次性贴给 AI 后，结论只反映开头和结尾，中段像没读过。最对症的做法是？",
+        o: ["把要求写得更长更详细", "分层摘要 + 分批投喂（背景 / 数据 / 要求分开给，先接收不输出）", "换个更强的模型再原样贴一次", "把中段重复贴两遍"],
+        a: 1,
+        why: "上下文窗口限制的是「一次能被看到多少」；分批投喂并声明先接收不输出，中段才会被真正读到。",
+        q_en: "After pasting long material in one go, conclusions only reflect the start and end - the middle reads as untouched. What is the right fix?",
+        o_en: ["Write an even longer, more detailed request", "Layered summarising plus batched feeding (background / data / requirements separately, acknowledge before output)", "Switch to a stronger model and paste the same way", "Paste the middle section twice"],
+        why_en: "The context window bounds what can be seen at once; batched feeding with an acknowledge-first instruction gets the middle actually read.",
+        type: "choice"
+      },
+      {
+        q: "判断 AI 产出的一段内容是不是幻觉，最可靠的判据是？",
+        o: ["读起来是否流畅", "能否回指到源材料的具体位置", "字数是否足够多", "是否使用了专业术语"],
+        a: 1,
+        why: "幻觉往往比真话更流畅；无法指认出处的内容都可疑——核对方式是「能不能指到出处」，不是「读着顺不顺」。",
+        q_en: "What is the most reliable test for whether an AI-produced passage is a hallucination?",
+        o_en: ["Whether it reads fluently", "Whether it can be traced back to a specific place in the source material", "Whether the word count is large enough", "Whether it uses technical terminology"],
+        why_en: "Hallucinations usually read smoother than the truth; anything that cannot be pointed to a source is suspect - the test is traceability, not fluency.",
+        type: "choice"
+      },
+      {
+        q: "团队共用同一个 AI 提示词模板时，最应该写进模板、而不是靠每个人记住的是？",
+        o: ["各自的用词偏好", "口径定义与禁用项（如「完成率」怎么算、不许新增材料里没有的数字）", "模型的名字与版本号", "输出的字数上限"],
+        a: 1,
+        why: "口径不锁进模板，十个人用同一个模板会得到十种答案；模板降低的是操作成本，不是责任等级。",
+        q_en: "When a team shares one AI prompt template, what belongs inside the template rather than in each person's memory?",
+        o_en: ["Everyone's personal wording preferences", "Definitions and forbidden items (how 'completion rate' is computed, no numbers absent from the material)", "The model's name and version", "An output word-count cap"],
+        why_en: "If definitions stay unlocked, ten people using one template produce ten answers. Templates lower operating cost, not accountability.",
+        type: "choice"
       }
     ]
   },
@@ -517,21 +548,87 @@ const DEEPEN_OFFICE_C = {
       ],
       vs: "读起来顺不顺与对不对无关；幻觉往往比真话更流畅。",
       vs_en: "Fluency says nothing about correctness - hallucinations usually read smoother than the truth."
+    },
+    /* —— F3 补批：c8l5（邮件与会议纪要）/ c8l6（综合交付全链路）新增概念入典 —— */
+    {
+      term: "会议纪要", term_en: "Meeting Minutes", cat: "通用与协作",
+      short: "会议产出的三张表：已定结论、行动项、待决事项——不是发言记录。",
+      short_en: "A meeting's three tables: decisions made, action items, open questions - not a transcript.",
+      detail: [
+        "纪要在会后 24 小时内发出，标题带日期与项目名，正文附到会名单。",
+        "口头一致不算达成：能被追溯的只有写下来的结论与负责人。"
+      ],
+      detail_en: [
+        "Send within 24 hours with the date and project in the subject, and list who attended.",
+        "Verbal agreement counts as nothing: only written conclusions with named owners can be traced."
+      ],
+      vs: "纪要记「决定与责任」，发言记录记「谁说了什么」——前者能追溯，后者不能。",
+      vs_en: "Minutes record decisions and owners; a transcript records who said what. Only the former is traceable."
+    },
+    {
+      term: "行动项", term_en: "Action Item", cat: "通用与协作",
+      short: "显式的「谁 · 做什么 · 什么时候前」；写在纪要或邮件末尾，不埋进段落。",
+      short_en: "An explicit owner · task · deadline, listed at the end - never buried in a paragraph.",
+      detail: [
+        "「请相关同事跟进」等于没有布置任务：没有具体人名和期限，延误时无法追问。",
+        "每条行动项落到一个具体人；需要多人协作时拆成多条，各自有期限。"
+      ],
+      detail_en: [
+        "'Please follow up, team' assigns nothing: without a named owner and a date, a slipping task has no one to chase.",
+        "One action item, one named person; split multi-person work into several items, each with its own deadline."
+      ],
+      vs: "行动项是承诺，讨论是过程；只有行动项能在复盘时对账。",
+      vs_en: "Action items are commitments; discussion is process. Only action items can be audited in a retrospective."
+    },
+    {
+      term: "单一数据源", term_en: "Single Source of Truth", cat: "数据与表格",
+      short: "一个数字只在表格里存一次，图表与幻灯都从它生成。",
+      short_en: "Each number lives once in the sheet; charts and slides derive from it.",
+      detail: [
+        "任何一处手抄的数字，都会在下一周变成两个互相矛盾的版本。",
+        "落地方法：图表引用表格、幻灯引用图表；口径与截止日写进表头附近，随数据一起被引用。"
+      ],
+      detail_en: [
+        "Any figure hand-copied along the way becomes two contradictory versions next week.",
+        "How: charts reference the sheet, slides reference charts; state definitions and the data cut-off near the header so they travel with the data."
+      ],
+      vs: "粘贴链接保持单一来源，截图制造第二来源——两套数字就是这么来的。",
+      vs_en: "Paste Link preserves the single source; a screenshot creates a second one - that is how conflicting numbers start."
+    },
+    {
+      term: "粘贴链接与嵌入", term_en: "Paste Link & Embed", cat: "数据与表格",
+      short: "Excel→PPT 的三种粘法：链接（随源更新）、嵌入（可双击回编辑）、图片（仅外观）。",
+      short_en: "Three pastes from Excel to slides: link (follows the source), embed (double-click to edit), picture (looks only).",
+      detail: [
+        "按「对方需不需要改、你担不担心链接断」来选：内部滚动更新用链接，对外发出或归档定格成图片。",
+        "链接的代价是源文件移动或改名就断；嵌入的代价是文件体积膨胀。放映前对所有链接对象执行一次「更新链接」。"
+      ],
+      detail_en: [
+        "Choose by whether the receiver must edit and whether the link survives: links for internally rolling versions, freeze to pictures for outgoing or archived copies.",
+        "A link breaks if the source moves or is renamed; an embed inflates the file. Run Update Link on every linked object before presenting."
+      ],
+      vs: "链接怕文件挪动，嵌入怕体积膨胀，图片怕数据变——三者各有一条命门。",
+      vs_en: "Links fear moved files, embeds fear bloat, pictures fear changed data - each has its own weak spot."
     }
   ],
 
-  /* 概念地图只加 2 个节点：画布是 780×428 的固定椭圆环，英文标签平均比中文宽近一倍，
-     实测 26 节点时英文态已有 2 处胶囊相碰（D28），加到 5 个会变 4 处。
-     先把 c9 接进图里（枢纽 + 一个二级概念），完整的容量解法留给 D28 单独一批做。 */
+  /* 概念地图：c9 全部 4 个词条都进图（AI 助手 + 提示词 + 上下文窗口 + AI 幻觉）。
+     此前只敢加 2 个节点——画布是 780×428 固定椭圆环，26 节点时英文态已有 2 处胶囊相碰。
+     F4 容量解法（index.html 的 cmapGeom：环半径/画布随「节点数 × 胶囊宽」自适应）
+     落地后瓶颈解除，本批补齐剩余 2 节点 + 2 边。 */
   mapAdd: {
     nodes: [
       { id: "AI 助手", tier: 1 },
-      { id: "提示词", tier: 2 }
+      { id: "提示词", tier: 2 },
+      { id: "上下文窗口", tier: 2 },
+      { id: "AI 幻觉", tier: 2 }
     ],
     edges: [
       { a: "AI 助手", b: "办公文档", zh: "生成与核对", en: "generate and check" },
       { a: "AI 助手", b: "协作", zh: "重复劳动下沉", en: "absorbs routine work" },
-      { a: "提示词", b: "AI 助手", zh: "任务四要素", en: "four-element brief" }
+      { a: "提示词", b: "AI 助手", zh: "任务四要素", en: "four-element brief" },
+      { a: "上下文窗口", b: "AI 助手", zh: "一次能看多少", en: "bounds what it sees" },
+      { a: "AI 幻觉", b: "AI 助手", zh: "不可指认即可疑", en: "untraceable = suspect" }
     ]
   }
 };

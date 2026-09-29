@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#2f7ed8">
-<meta name="description" content="R0：从0开始的Office（R0:hello office）—— 从 API 调用、本地部署、提示词工程、RAG、MCP 到 Agent，手把手把大模型变成生产力工具的自学课程。">
+<meta name="description" content="R0：从0开始的Office（R0:hello office）—— Word 排版与长文档、Excel 公式与透视表、PPT 设计与放映交付、PDF 处理与脱敏、云协作与数据安全，再到把 AI 用进办公流程：9 章 39 节 + 9 个实战，MS Office 与 WPS 双路线，把办公软件真正用对。">
 <meta name="author" content="bilibili 黄豆666 / huangdouplone">
-<meta name="keywords" content="R0,hello agent,从零开始的大模型,LLM,大语言模型,MCP,Agent,RAG,提示词工程,本地部署,模型选型,EDU系列,拾色造梦">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='13'%3E%F0%9F%A4%96%3C/text%3E%3C/svg%3E">
+<meta name="keywords" content="R0,hello office,从零开始的Office,Word,Excel,PowerPoint,PPT,PDF,WPS,办公软件,排版,样式,公式,数据透视表,模板,协作,脱敏,AI 办公,EDU系列,拾色造梦">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='13'%3E%F0%9F%97%82%EF%B8%8F%3C/text%3E%3C/svg%3E">
 <title>R0：从0开始的Office · R0:hello office</title>
 <style>
 
@@ -331,6 +331,12 @@ body.sbCollapsed .sb-toggle{display:flex;}
 
 /* 笔记 */
 .note-area{width:100%;min-height:120px;border:1px solid var(--line);border-radius:10px;padding:12px;font-size:14px;background:var(--soft);color:var(--ink);resize:vertical;font-family:inherit;}
+/* WS2.1 实战卡「完成说明」：比课节笔记矮一档，随卡片流式布局 */
+.lab-note{width:100%;min-height:64px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13.5px;background:var(--soft);color:var(--ink);resize:vertical;font-family:inherit;margin-top:10px;}
+.note-hint{font-size:11.5px;color:var(--sub);margin-top:4px;}
+/* WS2.2 课节弹窗 → 实战卡跳转后的高亮 */
+@keyframes labflash{0%{box-shadow:0 0 0 3px var(--blue);}70%{box-shadow:0 0 0 3px var(--blue);}100%{box-shadow:0 0 0 0 rgba(47,126,216,0);}}
+.lab.flash{animation:labflash 1.2s ease-out 2;}
 
 /* 日报 */
 .report-box{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px;font-size:14px;white-space:pre-wrap;line-height:1.7;}
@@ -669,9 +675,9 @@ body.sbCollapsed .sb-toggle{display:flex;}
 <script src="office-extra-data.js?v=1"></script>
 <script src="office-deepen-a.js?v=2"></script>
 <script src="office-deepen-b.js?v=2"></script>
-<script src="office-deepen-c.js?v=2"></script>
+<script src="office-deepen-c.js?v=4"></script>
 <script src="office-deepen-d.js?v=2"></script>
-<script src="office-expand.js?v=1"></script>
+<script src="office-expand.js?v=2"></script>
 <script src="office-quiz-en.js?v=1"></script>
 <script>
 /*
@@ -753,6 +759,9 @@ function sysLocale(){ var l = String(navigator.language || (navigator.userLangua
 var LANG = (data.settings && data.settings.lang) || sysLocale();
 var I18N_EN = {
   "复制步骤":"Copy steps",  "✓ 标记完成（+":"Mark done (",  " XP）":" XP)",  "已完成":"Done",  "实战完成！":"Lab done!",
+  "完成说明（离开输入框自动保存）":"Completion notes (auto-saves when you click away)",
+  "一句话记录你是怎么做的、结果如何…":"In a sentence: how did you do it, and how did it turn out...",
+  "本章课节":"Chapter lessons",  "本章实战":"Chapter lab",  "去完成":"Open it",  "说明已保存":"Note saved",
   "R0：从0开始的Office": "R0:hello office",
   "🗂️ R0:hello agent · 从零开始的大模型": "🗂️ R0:hello agent · Large Models from Zero",
   "操作路径": "Where to click","切换软件路线":"Switch software track","打开导航":"Open navigation","导航":"Navigation","概念地图":"Concept Map","界面语言 / Interface language":"Interface language",
@@ -1152,27 +1161,138 @@ var cmapSel = null;                       // 当前聚焦的概念（null = 总�
 var cmapChipsAll = false;                 // F-1 图例是否展开（默认只显核心层）
 var achOpen = {};                         // F-2 各成就组的展开态
 var CMAP_CX = 390, CMAP_CY = 210;
-/* 分层「椭圆环」：rx 宽、ry 矮 —— 版面宽而扁，才能在有限高度里放下更多节点 */
+/* 分层「椭圆环」基线：rx 宽、ry 矮 —— 版面宽而扁，才能在有限高度里放下更多节点 */
 var CMAP_RINGS = { 1: { rx: 126, ry: 84 }, 2: { rx: 246, ry: 128 }, 3: { rx: 338, ry: 194 } };
-/* 外环取相邻内环节角的「半个步长」（tier2 每格 36° → 18°），并把半径拉开，避免胶囊相互压叠 */
-var CMAP_OFFSET = { 1: 0, 2: 0, 3: Math.PI / 10 };
+/* —— F4 容量解法（D28 收口）：环半径与画布随「各层节点 × 胶囊宽度」自适应 ——
+   ① 每层的角度按胶囊宽度加权分配（cmapSlotAngles）：宽的占长弧、窄的占短弧，
+     环周长需求 = Σw + n×16 即可保证相邻胶囊互不相碰；等角摆放则要 n×最宽，
+     会被少数几个宽英文标签绑架（第一版实测放大到 1342×656 才清零碰撞）；
+   ② 需求 ≤ 基线周长时该层 k=1 —— 中文态基线 780×428 几何不变；
+   ③ 放不下时只放大该层，并由内向外做穿越保护（rx 净距 90 / ry 净距 40）；
+   ④ viewBox 按外环 + 最大胶囊反推。英文标签约为中文两倍宽，只有英文态触发放大。 */
+function cmapPillW2(id) {
+  var lines = cmapWrap(cmapLabel(id)), w = cmapPillW(lines[0]);
+  lines.forEach(function (x) { w = Math.max(w, cmapPillW(x)); });
+  return { w: w, wrapped: lines.length > 1 };
+}
+function cmapEllipsePerimeter(rx, ry) {
+  return Math.PI * (3 * (rx + ry) - Math.sqrt((3 * rx + ry) * (rx + 3 * ry)));  /* Ramanujan 近似 */
+}
+function cmapGeom() {
+  var byTier = {};
+  CMAP.nodes.forEach(function (n) { (byTier[n.tier] = byTier[n.tier] || []).push(n.id); });
+  var rings = {}, maxW = 0, maxH = 26;
+  Object.keys(CMAP_RINGS).forEach(function (t2) { rings[t2] = { rx: CMAP_RINGS[t2].rx, ry: CMAP_RINGS[t2].ry }; });
+  Object.keys(rings).forEach(function (t2) {
+    var list = byTier[t2] || []; if (!list.length) return;
+    var sumW = 0;
+    list.forEach(function (id) {
+      var m = cmapPillW2(id);
+      sumW += m.w; if (m.w > maxW) maxW = m.w;
+      if (m.wrapped) maxH = 40;
+    });
+    var need = sumW + 16 * list.length;
+    var base = cmapEllipsePerimeter(rings[t2].rx, rings[t2].ry);
+    var k = need > base ? need / base : 1;
+    rings[t2].rx = Math.round(rings[t2].rx * k);
+    rings[t2].ry = Math.round(rings[t2].ry * k);
+  });
+  var order = [1, 2, 3].filter(function (t2) { return byTier[t2] && byTier[t2].length; });
+  var i, a, b;
+  for (i = 1; i < order.length; i++) {
+    a = rings[order[i - 1]]; b = rings[order[i]];
+    if (b.rx < a.rx + 90) b.rx = a.rx + 90;
+    if (b.ry < a.ry + 40) b.ry = a.ry + 40;
+  }
+  var outerRx = 0, outerRy = 0;
+  order.forEach(function (t2) {
+    if (rings[t2].rx > outerRx) outerRx = rings[t2].rx;
+    if (rings[t2].ry > outerRy) outerRy = rings[t2].ry;
+  });
+  var W = Math.max(780, Math.ceil((outerRx + maxW / 2 + 10) * 2));
+  var H = Math.max(428, Math.ceil((outerRy + maxH / 2 + 6) * 2));
+  return { cx: Math.round(W / 2), cy: Math.round(H / 2), rings: rings, W: W, H: H };
+}
 function cmapLabel(id) { return termEn(id, "term") || id; }
 function cmapSub(id) {
   var x = TERMS.find(function (t2) { return t2.term === id; });
   return x ? (termEn(id, "short") || x.short || "") : "";
 }
+/* 椭圆上按「弧长占比」反查参数角：720 段采样累计弧长后回查。
+   扁椭圆上等角步长的弧长并不相等（两端挤、两侧疏），按弧长摆才能间距均匀。 */
+function cmapAngleForFraction(f, rx, ry) {
+  var N = 720, cum = [0], i, t, ds, total = 0;
+  for (i = 1; i <= N; i++) {
+    t = 2 * Math.PI * (i - 0.5) / N;
+    ds = Math.sqrt(rx * rx * Math.sin(t) * Math.sin(t) + ry * ry * Math.cos(t) * Math.cos(t)) * (2 * Math.PI / N);
+    total += ds; cum.push(total);
+  }
+  var target = f * total;
+  for (i = 1; i <= N; i++) { if (cum[i] >= target) return 2 * Math.PI * i / N; }
+  return 2 * Math.PI;
+}
+/* 每层节点按「胶囊宽度加权」分配角度：宽的占长弧、窄的占短弧。
+   再做宽窄交错（按宽度排序后蛇形穿插）：两个最宽的胶囊相邻时，会在椭圆拐角处
+   纵向咬合（AABB 相碰而弧长够用）——用窄胶囊把它们隔开即可，周长需求不变。 */
+function cmapSlotAngles(list, rx, ry) {
+  var GAP = 16, i, ws = [], span = 0, acc = 0;
+  for (i = 0; i < list.length; i++) { ws.push(cmapPillW2(list[i]).w); span += ws[i] + GAP; }
+  var byW = list.map(function (x, k2) { return k2; }).sort(function (a, b) { return ws[b] - ws[a]; });
+  var seq = [], lo = 0, hi = byW.length - 1, wide = true;
+  while (lo <= hi) { seq.push(wide ? byW[lo++] : byW[hi--]); wide = !wide; }
+  var angles = [];
+  for (i = 0; i < seq.length; i++) {
+    var k2 = seq[i];
+    acc += ws[k2] / 2;
+    angles[k2] = cmapAngleForFraction(acc / span, rx, ry) - Math.PI / 2;
+    acc += ws[k2] / 2 + GAP;
+  }
+  return angles;
+}
 function cmapLayout() {
+  var G = cmapGeom();
   var byTier = {};
   CMAP.nodes.forEach(function (n) { (byTier[n.tier] = byTier[n.tier] || []).push(n.id); });
-  var pos = {};
-  (byTier[0] || []).forEach(function (id) { pos[id] = { x: CMAP_CX, y: CMAP_CY }; });
-  Object.keys(CMAP_RINGS).forEach(function (t2) {
-    var list = byTier[t2] || [], R = CMAP_RINGS[t2];
+  var pos = {}, meta = {};
+  (byTier[0] || []).forEach(function (id) { pos[id] = { x: G.cx, y: G.cy }; });
+  Object.keys(G.rings).forEach(function (t2) {
+    var list = byTier[t2] || [], R = G.rings[t2];
+    if (!list.length) return;
+    var angs = cmapSlotAngles(list, R.rx, R.ry);
     list.forEach(function (id, i) {
-      var ang = -Math.PI / 2 + (CMAP_OFFSET[t2] || 0) + (2 * Math.PI * i) / list.length;
-      pos[id] = { x: CMAP_CX + R.rx * Math.cos(ang), y: CMAP_CY + R.ry * Math.sin(ang) };
+      pos[id] = { x: G.cx + R.rx * Math.cos(angs[i]), y: G.cy + R.ry * Math.sin(angs[i]) };
+      meta[id] = { ang: angs[i], rx: R.rx, ry: R.ry };
     });
   });
+  /* —— F4 跨环避让：环间净距按「同角上下」设定，斜角处两环的宽胶囊会纵向咬合
+     （AABB 相碰而弧长/欧氏距离都够用）。贪心微调：每一轮找一对相碰节点，
+     各沿自身环向反方向转 0.02rad，直到全图无碰撞（有界 30 轮，确定性结果）。 */
+  var ids = Object.keys(meta), pad = 2, iter, i, j;
+  function boxOf(id) {
+    var m = cmapPillW2(id), w = m.w, h = m.wrapped ? 40 : 26;
+    return { x: pos[id].x - w / 2, y: pos[id].y - h / 2, w: w, h: h };
+  }
+  function hit(a, b) {
+    var A = boxOf(a), B = boxOf(b);
+    return A.x - pad < B.x + B.w && B.x - pad < A.x + A.w && A.y - pad < B.y + B.h && B.y - pad < A.y + A.h;
+  }
+  for (iter = 0; iter < 30; iter++) {
+    var pair = null;
+    for (i = 0; i < ids.length && !pair; i++) {
+      for (j = i + 1; j < ids.length; j++) {
+        if (hit(ids[i], ids[j])) { pair = [ids[i], ids[j]]; break; }
+      }
+    }
+    if (!pair) break;
+    var mi = meta[pair[0]], mj = meta[pair[1]];
+    var d = mi.ang - mj.ang;
+    while (d > Math.PI) d -= 2 * Math.PI;
+    while (d < -Math.PI) d += 2 * Math.PI;
+    var s1 = d >= 0 ? 1 : -1, step = 0.02;
+    mi.ang += s1 * step; mj.ang += -s1 * step;
+    pos[pair[0]] = { x: G.cx + mi.rx * Math.cos(mi.ang), y: G.cy + mi.ry * Math.sin(mi.ang) };
+    pos[pair[1]] = { x: G.cx + mj.rx * Math.cos(mj.ang), y: G.cy + mj.ry * Math.sin(mj.ang) };
+  }
   return pos;
 }
 function cmapPillW(label) { return Math.max(58, Math.round(label.length * 6 + 16)); }
@@ -1188,6 +1308,8 @@ function cmapWrap(label) {
 }
 function renderMap() {
   var svg = $("cmapSvg"); if (!svg || !CMAP.nodes.length) return;
+  var G = cmapGeom();
+  svg.setAttribute("viewBox", "0 0 " + G.W + " " + G.H);   /* F4：画布随节点数/语言自适应 */
   var pos = cmapLayout(), sel = cmapSel, near = {};
   if (sel) { near[sel] = 1; CMAP.edges.forEach(function (e) { if (e.a === sel) near[e.b] = 1; else if (e.b === sel) near[e.a] = 1; }); }
   var s = "";
@@ -1452,15 +1574,21 @@ function renderLabs() {
 }
 function labCardHtml(x) {
   var labDone = data.labs && data.labs[x.id] && data.labs[x.id].done;
-  var h = '<div class="lab"><h3>' + esc(labEn(x.id, "t") || x.t) +
+  var noteVal = (data.labs && data.labs[x.id] && data.labs[x.id].note) || "";
+  var h = '<div class="lab" id="labcard-' + x.id + '"><h3>' + esc(labEn(x.id, "t") || x.t) +
     (labDone ? ' <span class="ext-badge">✅ ' + t("已完成") + (data.labs[x.id].date ? " · " + data.labs[x.id].date : "") + "</span>" : "") + "</h3>";
   var reqEn = labBodyEn(x.id, "req"); var reqList = reqEn || (x.req || []); h += '<div class="req">' + (LANG === "en" ? "Requires: " : "需要：") + esc(reqList.map(prodEn).join(LANG === "en" ? ", " : "、")) + "</div>";
   var stEn = labBodyEn(x.id, "starter"); h += "<pre>" + crAttr() + esc(stEn || x.starter) + "</pre>";
   var hintEn = labBodyEn(x.id, "hint"); h += '<div class="hint" id="hint-' + x.id + '">' + esc(hintEn || x.hint) + "</div>";
   h += '<div class="acts"><button class="btn small green" data-act="copy-lab" data-id="' + x.id + '">' + t("复制步骤") + "</button>";
   h += '<button class="btn small ghost" data-act="toggle-hint" data-id="' + x.id + '">' + t("看提示") + "</button>";
+  /* WS2.2 实战 → 课节：跳到本章第一个 stage 卡并展开 */
+  h += '<button class="btn small ghost" data-act="lab-to-stage" data-id="' + (x.stage || "") + '">' + t("本章课节") + "</button>";
   h += '<button class="btn small ' + (labDone ? "ghost" : "amber") + '" data-act="lab-done" data-id="' + x.id + '"' + (labDone ? " disabled" : "") + '>' +
     (labDone ? t("已完成") : t("✓ 标记完成（+") + x.xp + t(" XP）")) + "</button></div>";
+  /* WS2.1 完成说明：存 data.labs[id].note；离开输入框（change 委派）自动保存 */
+  h += '<textarea class="lab-note" id="labnote-' + x.id + '" data-id="' + x.id + '" placeholder="' + esc(t("一句话记录你是怎么做的、结果如何…")) + '">' + esc(noteVal) + "</textarea>";
+  h += '<div class="note-hint">' + t("完成说明（离开输入框自动保存）") + "</div>";
   return h + "</div>";
 }
 function toggleLabGroup(sid) {
@@ -1472,6 +1600,31 @@ function toggleAllLabs(mode) {
   data.labOpen = {};
   if (mode !== "collapse") LABS.forEach(function (x) { data.labOpen[x.stage || "_other"] = true; });
   saveData(); renderLabs();
+}
+/* WS2.1 完成说明：存 data.labs[id].note。change 委派在 blur 且值有变化时触发，
+   所以无需保存按钮、也不会重复 toast；说明存在与否不影响 done 判定。 */
+function saveLabNote(id) {
+  var ta = $("labnote-" + id); if (!ta) return;
+  data.labs = data.labs || {};
+  if (!data.labs[id]) data.labs[id] = {};
+  data.labs[id].note = ta.value.replace(/^\s+|\s+$/g, "");
+  saveData();
+  toast(LANG === "en" ? "Note saved" : "说明已保存");
+}
+/* WS2.2 课节 → 实战：关弹窗、展开该章实战组、滚动到卡片并高亮两拍 */
+function gotoLab(labId) {
+  var lab = LABS.filter(function (x) { return x.id === labId; })[0]; if (!lab) return;
+  modalLessonId = null;
+  var mk = $("modalMask"); if (mk) mk.classList.remove("show");
+  data.labOpen = data.labOpen || {};
+  data.labOpen[lab.stage || "_other"] = true;
+  saveData(); renderLabs();
+  var card = $("labcard-" + labId);
+  if (card) {
+    card.scrollIntoView({ behavior: "smooth", block: "center" });
+    card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash");
+    setTimeout(function () { card.classList.remove("flash"); }, 2600);
+  } else { var g = $("labGrid"); if (g) g.scrollIntoView({ behavior: "smooth", block: "start" }); }
 }
 
 /* ===================== 渲染：测评 ===================== */
@@ -1641,6 +1794,9 @@ function openLesson(id) {
   var exQ = (exEn && exEn.q) || (LANG === "en" && l.ex && l.ex.q_en) || (l.ex && l.ex.q);
   var exA = (exEn && exEn.a) || (LANG === "en" && l.ex && l.ex.a_en) || (l.ex && l.ex.a);
   if (exQ) h += '<div class="m-block"><div class="lab">' + t("思考") + '</div><p><b>' + (LANG === "en" ? "Q: " : "Q：") + '</b>' + esc(exQ) + "</p><p><b>" + (LANG === "en" ? "A: " : "A：") + "</b>" + esc(exA) + "</p></div>";
+  /* WS2.2 教材↔实战互链：本章有实战卡就在弹窗尾部放入口，一键跳过去并高亮 */
+  var mLab = LABS.filter(function (x) { return x.stage === s.id; })[0];
+  if (mLab) h += '<div class="m-block"><div class="lab">' + t("本章实战") + '</div><button class="btn small ghost" data-act="lesson-to-lab" data-id="' + mLab.id + '">' + t("去完成") + " · " + esc(labEn(mLab.id, "t") || mLab.t) + "</button></div>";
   h += '<div class="controls"><button class="btn ' + (comp ? "amber" : "green") + '" data-act="toggle-complete" data-id="' + id + '">' + (comp ? t("取消完成") : t("标记完成")) + "</button></div>";
   box.innerHTML = h;
   $("modalMask").classList.add("show");
@@ -1829,7 +1985,10 @@ function ofsMergeLesson(prev, nw, lid) {
     summary: nw.summary || (prev && prev.summary),
     code: nw.code != null ? nw.code : (prev && prev.code),
     pit: nw.pit != null ? nw.pit : (prev && prev.pit),
-    ex: nw.ex || (prev && prev.ex)
+    ex: nw.ex || (prev && prev.ex),
+    /* 建议时长：深化层新写的课节（如 c8l5/l6、c9l1-l5）内联带 min，
+       之前不搬运导致这 7 节丢失「建议时长」；未写 min 的沿用原课节的值。 */
+    min: nw.min != null ? nw.min : (prev && prev.min)
   };
   /* 双路线操作路径：层里给了就用层的（O3 要修的就是这个），没给沿用原值 */
   o.path = nw.path || (prev && prev.path);
@@ -2022,6 +2181,9 @@ document.addEventListener("click", function (e) {
   else if (act === "copy-lab") { var lab = LABS.find(function (x) { return x.id === id; }); if (lab) copyText(crComment() + lab.starter); }
   else if (act === "lab-group") { toggleLabGroup(id); }
   else if (act === "lab-toggle-all") { toggleAllLabs(id); }
+  /* WS2.2 互链：实战卡 → 本章课节；课节弹窗 → 本章实战 */
+  else if (act === "lab-to-stage") { var stg6 = $("stage-" + id); if (stg6) { stg6.classList.add("open"); stg6.scrollIntoView({ behavior: "smooth", block: "start" }); } }
+  else if (act === "lesson-to-lab") { gotoLab(id); }
   else if (act === "mk-page") { data.mkPage = parseInt(id, 10) || 1; saveData(); renderMistakes(); }
   else if (act === "mk-prev") { data.mkPage = Math.max(1, (data.mkPage || 1) - 1); saveData(); renderMistakes(); }
   else if (act === "mk-next") { data.mkPage = (data.mkPage || 1) + 1; saveData(); renderMistakes(); }
@@ -2039,7 +2201,7 @@ document.addEventListener("click", function (e) {
 });
 $("modalMask").addEventListener("click", function (e) { if (e.target === this) { modalLessonId = null; this.classList.remove("show"); } });
 /* 错题本翻页的「跳至 N 页」：输入框走 change 与回车两条路，不额外加按钮 */
-document.addEventListener("change", function (e) { var el = e.target; if (el && el.classList && el.classList.contains("pg-jump")) mkJump(el.value); });
+document.addEventListener("change", function (e) { var el = e.target; if (el && el.classList && el.classList.contains("pg-jump")) mkJump(el.value); else if (el && el.classList && el.classList.contains("lab-note")) saveLabNote(el.dataset.id); });
 document.addEventListener("keydown", function (e) { if (e.key === "Enter" && e.target && e.target.classList && e.target.classList.contains("pg-jump")) mkJump(e.target.value); });
 $("sbToggle").addEventListener("click", openSidebar);
 $("sbOverlay").addEventListener("click", closeSidebar);
