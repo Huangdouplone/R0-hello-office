@@ -219,7 +219,7 @@ const DEEPEN_OFFICE_C = {
       title: "把材料喂给 AI：上下文组织与可复现提示",
       title_en: "Feeding AI: Context Organisation and Reproducible Prompts",
       summary: [
-        "上下文质量决定产出质量，顺序很重要：先筛信息（哪些是结论依据、哪些只是背景），再给结构（编号分节），最后才给任务。一上来就倒材料，模型只能猜你的重点。",
+        "上下文窗口的大小有限，上下文质量决定产出质量，顺序很重要：先筛信息（哪些是结论依据、哪些只是背景），再给结构（编号分节），最后才给任务。一上来就倒材料，模型只能猜你的重点。",
         "长材料先做分层摘要：让 AI 先出要点清单，你删掉错的，再基于修正后的清单要求成文。一步到位的长文最容易在中段失控——那正是没人细看的地方。",
         "给材料编号并要求指认来源：「依据请注明第几条材料」。可指认的位置会显著减少凭空生成；只写「根据资料」等于没有约束。",
         "把提示词当文件管理：任务描述 + 口径定义 + 禁用项 + 输出格式，四段固定。只有结构稳定，两次产出的差异才可比、可迭代。",
@@ -228,7 +228,7 @@ const DEEPEN_OFFICE_C = {
         "敏感材料不上传是底线判断：合同、人事、客户名单、含个人信息的表格，先确认公司是否允许、是否已脱敏（去掉姓名、手机号、账号、内部编号、地址）。"
       ],
       summary_en: [
-        "Context quality decides output quality, and order matters: filter the information first (what is evidence for the conclusion versus mere background), then structure it (numbered sections), and only then state the task. Dump raw material and the model can only guess your priorities.",
+        "The context window is finite, and context quality decides output quality; order matters: filter the information first (what is evidence for the conclusion versus mere background), then structure it (numbered sections), and only then state the task. Dump raw material and the model can only guess your priorities.",
         "For long material, summarise in layers: ask for a bullet list, delete what is wrong, then request the prose from the corrected list. One-shot long documents lose control in the middle — exactly the part nobody reads closely.",
         "Number your inputs and demand attribution: 'cite which item you relied on'. Pointable sources measurably reduce invented content; 'based on the material provided' is no constraint at all.",
         "Manage prompts like files: task description + definitions + forbidden items + output format, those four blocks fixed. Only with a stable structure can differences between two runs be compared and iterated.",
@@ -262,7 +262,7 @@ const DEEPEN_OFFICE_C = {
       title: "AI 产出的把关：核对、留痕与责任边界",
       title_en: "Accepting AI Output: Checks, Evidence and Accountability",
       summary: [
-        "责任不因为用了 AI 而转移：署名的人对每个数字和每条结论负责。在评审场合，「这是 AI 写的」不是解释，只是把一个未核对的内容又交了一遍手。",
+        "AI 幻觉是这一章的底色：模型会生成「看似合理」却没有依据的内容，责任不因为用了 AI 而转移——署名的人对每个数字和每条结论负责。在评审场合，「这是 AI 写的」不是解释，只是把一个未核对的内容又交了一遍手。",
         "三类必查：数字（回到源表复算一遍）、引用与出处（找到原文和页码）、时间与名称（日期、人名、产品名最容易被写成「看似合理」的版本）。",
         "把 AI 稿与你的手工稿并排 diff。它删掉的往往正是关键限定条件——「在 X 前提下」「截至 Y 日」「不含退货」，去掉这些句子，结论就从准确变成漂亮。",
         "校验型用法比生成型更稳：让 AI 检查已有草稿的口径不一致、遗漏项、歧义句、逻辑冲突，比让它凭空写一份安全得多，因为判断锚点仍在你自己的材料上。",
@@ -271,7 +271,7 @@ const DEEPEN_OFFICE_C = {
         "不要让它做决策，让它做决策的展开：列选项、列代价、列你没想到的是它可以干的；取舍与结论由人写。把判断外包给模型，是最典型也最难察觉的误用。"
       ],
       summary_en: [
-        "Using AI does not move accountability: whoever signs the document owns every number and conclusion. In a review, 'the AI wrote it' is not an explanation — it is just handing over unchecked content one more time.",
+        "AI hallucination is the backdrop of this chapter: models produce plausible-sounding but ungrounded content. Using AI does not move accountability: whoever signs the document owns every number and conclusion. In a review, 'the AI wrote it' is not an explanation — it is just handing over unchecked content one more time.",
         "Three categories to check always: figures (recompute from the source table), citations (find the original text and page), and time and names (dates, people, product names are the most likely to be written into a plausible-looking version).",
         "Diff the AI draft against your own side by side. What it deletes is usually the qualifying clause — 'assuming X', 'as of date Y', 'excluding returns'. Remove those and a correct conclusion becomes a smooth one.",
         "Verification uses are steadier than generation uses: have AI audit an existing draft for inconsistent definitions, missing items, ambiguous sentences and internal contradictions. It is safer than writing from nothing, because the anchor stays in your own material.",
@@ -596,7 +596,7 @@ const DEEPEN_OFFICE_C = {
       vs_en: "Paste Link preserves the single source; a screenshot creates a second one - that is how conflicting numbers start."
     },
     {
-      term: "粘贴链接与嵌入", term_en: "Paste Link & Embed", cat: "数据与表格",
+      term: "粘贴链接", term_en: "Paste Link", cat: "数据与表格",
       short: "Excel→PPT 的三种粘法：链接（随源更新）、嵌入（可双击回编辑）、图片（仅外观）。",
       short_en: "Three pastes from Excel to slides: link (follows the source), embed (double-click to edit), picture (looks only).",
       detail: [
